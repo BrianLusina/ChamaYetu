@@ -8,7 +8,7 @@ Application to better manage SME groups and *chamas*.
          |-- run.py
          |-- config.py
          |__ /venv             # Virtual Environment, not pushed to git
-         |__ /app             # Our Application Module
+         |__ /app              # Our Application Module
              |-- __init__.py
              |-- /mod_auth # handles all authentication with logins
                  |-- __init__.py
