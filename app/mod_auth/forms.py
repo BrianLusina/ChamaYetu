@@ -8,3 +8,4 @@ class LoginForm(Form):
     email = StringField("Email Address", [Email(), DataRequired(message="Forgot your email address?")])
     password = PasswordField("Password", [DataRequired(message="Must provide a password")])
 
+
