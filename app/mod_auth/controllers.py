@@ -1,8 +1,7 @@
-from flask import Blueprint, request, render_template, g,flash, session,redirect, url_for
+from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
 
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
-from app import db
 
 # import module forms
 from app.mod_auth.forms import LoginForm
