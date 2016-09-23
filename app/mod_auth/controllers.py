@@ -16,7 +16,7 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 # set the routes and accepted methods
 @mod_auth.route('/signin/', methods=["POST", "GET"])
-def signin():
+def sign_in():
     """
     Create an object of the LoginForm that takes form fields as a parameter
     validate the form on submission, check if the user is true(exists) and if the passwords match
@@ -37,6 +37,4 @@ def signin():
             flash(message="Welcome %s" % user.name)
             return redirect(url_for('auth.home'))
         flash(message="Wrong email or password", category='error-message')
-    return render_template("auth/login.html",form=form)
-
-
+    return render_template("auth/login.html", form=form)
