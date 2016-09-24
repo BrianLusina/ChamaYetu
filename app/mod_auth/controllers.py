@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -11,7 +10,6 @@ from app.mod_auth.forms import LoginForm
 from app.models import User, Data_Base, engine
 
 # Create session and connect to DB
-# engine = create_engine('sqlite:///app.db')
 Data_Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
@@ -29,7 +27,7 @@ def sign_in():
     if true assign the user a session and store their id in a session dictionary
     redirect them to their dashboard
     else, flash a message informing them of wrong credentials
-    :return:
+    :return: render the login template
     """
     form = LoginForm(request.form)
 
@@ -41,6 +39,16 @@ def sign_in():
 
             # welcome the user because they are awesome
             flash(message="Welcome %s" % user.name)
-            return redirect(url_for('auth.home'))
+            return redirect(url_for('redirect_dash'))
         flash(message="Wrong email or password", category='error-message')
     return render_template("auth/login.html", form=form)
+
+
+# TODO: redirect to mod_dashboard's controller pass in user name as a url
+@mod_auth.route('/dashboard/>')
+def redirect_dash(user_id):
+    """
+    Redirect the user to their dashboard
+    :return: template for user dashboard
+    """
+    return render_template("")
