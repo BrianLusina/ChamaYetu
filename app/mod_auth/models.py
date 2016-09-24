@@ -29,6 +29,7 @@ class User(Base):
         phone_number: user phone number
         role:Authorisation Data: role & status, whether admin(chairperson) member
         status: whether online or offline
+        total_contributed: total amt of money contributed to date :type int
     """
     __tablename__ = "user_table"
 
@@ -40,6 +41,7 @@ class User(Base):
     phone_number = Column(Integer, nullable=False)
     role = Column(SmallInteger, nullable=False)
     status = Column(SmallInteger, nullable=True)
+    total_contributed = Column(Integer)
 
     username = first_name.lower() + last_name.lower() + "@" + chama_group
 
@@ -53,7 +55,7 @@ class User(Base):
         self.password = password
 
     def __repr__(self):
-        return "<User %r\n" % self.name + "<Contact{Email: %r, Number:%r}>" % (self.email, self.phone_number)
+        return "<User %r\n" % self.name + "<Contact:{Email: %r, Number:%r}>\n" % (self.email, self.phone_number)
 
 
 class ChamaGroup(Base):
@@ -66,6 +68,7 @@ class ChamaGroup(Base):
     __tablename__ = "chama_groups"
 
     name = Column(String(130), nullable=False)
+    total_amount = Column(Integer, nullable=True)
 
 
 # create the database, TODO: change to postgres database
