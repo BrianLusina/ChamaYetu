@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -7,7 +8,13 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app.mod_auth.forms import LoginForm
 
 # import module models
-from app.mod_auth.models import  User
+from app.mod_auth.models import User, Data_Base
+
+# Create session and connect to DB
+engine = create_engine('sqlite:///restaurantmenu.db')
+Data_Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+db_session = DBSession()
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
