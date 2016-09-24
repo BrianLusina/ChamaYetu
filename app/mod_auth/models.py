@@ -1,5 +1,4 @@
 # import database object from main app module
-from app import db
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, DateTime, func, SmallInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -23,7 +22,7 @@ class User(Base):
     __tablename__ = "user_table"
 
     # User Name
-    name = Column(db.String(128), nullable=False)
+    name = Column(String(128), nullable=False)
 
     # Identification Data: email & password
     email = Column(String(128), nullable=False, unique=True)

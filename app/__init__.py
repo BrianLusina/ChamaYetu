@@ -1,6 +1,6 @@
 # import flask and template errors
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
+
 
 # import a module or component using its Blueprint handler variable
 from app.mod_auth.controllers import mod_auth as auth_module
@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 # define the database object which is imported by modules and controllers
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 
 
 # Error handler
@@ -26,4 +26,4 @@ app.register_blueprint(auth_module)
 
 # Build the database
 # This will create the database file using SQLAlchemy
-db.create_all()
+# db.create_all()
