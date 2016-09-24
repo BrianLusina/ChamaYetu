@@ -34,7 +34,7 @@ def sign_in():
     form = LoginForm(request.form)
 
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = db_session.query(User).filter_by(email=form.email.data).first()
 
         if user and check_password_hash(pwhash=user.password, password=form.password.data):
             session['user_id'] = user.id
