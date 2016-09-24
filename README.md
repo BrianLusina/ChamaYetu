@@ -14,12 +14,21 @@ Application to better manage SME groups and *chamas*.
                  |-- __init__.py
                  |-- controllers.py
                  |-- models.py
+                 |-- forms.py
+             |--/mod_dashboard
+                |--__init__.py
+                |--controllers.py
+                |--views.py
          |-- views.py                
             |__ /templates
                 |__ /auth
                     |-- forgot.html
                     |-- login.html
                     |-- signup.html
+                |--/user_dashboard
+                    |-- user_dash.html
+                    |-- calender.html
+                    |-- base.html
                 404.html
             |__ /static
                 |__ ..
