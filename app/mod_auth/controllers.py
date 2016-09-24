@@ -11,7 +11,7 @@ from app.mod_auth.forms import LoginForm
 from app.mod_auth.models import User, Data_Base
 
 # Create session and connect to DB
-engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('sqlite:///app.db')
 Data_Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()

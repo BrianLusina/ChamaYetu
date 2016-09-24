@@ -11,10 +11,6 @@ app = Flask(__name__)
 # configurations
 app.config.from_object('config')
 
-# define the database object which is imported by modules and controllers
-#db = SQLAlchemy(app)
-
-
 # Error handler
 @app.errorhandler(404)
 def not_found(error):
@@ -24,6 +20,3 @@ def not_found(error):
 # Register blueprint(s) ALL blueprints will be registered here
 app.register_blueprint(auth_module)
 
-# Build the database
-# This will create the database file using SQLAlchemy
-# db.create_all()
