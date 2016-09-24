@@ -18,6 +18,19 @@ class Base(Data_Base):
     date_modified = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())
 
 
+class ChamaGroup(Base):
+    """
+    The Chama group table. Will contain a table for all the chamas in the database
+    Attributes:
+        name: name of the chama
+    """
+
+    __tablename__ = "chama_group"
+
+    name = Column(String(130), nullable=False)
+    total_amount = Column(Integer, nullable=True)
+
+
 class User(Base):
     """
     Attribues:
@@ -43,9 +56,9 @@ class User(Base):
     status = Column(SmallInteger, nullable=True)
     total_contributed = Column(Integer)
 
-    username = first_name.lower() + last_name.lower() + "@" + chama_group
+    # username = first_name.lower() + last_name.lower() + "@" + chama_group
 
-    chama_id = Column(Integer, ForeignKey('chama_groups.id'))
+    chama_id = Column(Integer, ForeignKey('chama_group.id'))
     chama = relationship(ChamaGroup)
 
     # new instance instantiation procedure
@@ -56,19 +69,6 @@ class User(Base):
 
     def __repr__(self):
         return "<User %r\n" % self.name + "<Contact:{Email: %r, Number:%r}>\n" % (self.email, self.phone_number)
-
-
-class ChamaGroup(Base):
-    """
-    The Chama group table. Will contain a table for all the chamas in the database
-    Attributes:
-        name: name of the chama
-    """
-
-    __tablename__ = "chama_groups"
-
-    name = Column(String(130), nullable=False)
-    total_amount = Column(Integer, nullable=True)
 
 
 # create the database, TODO: change to postgres database
