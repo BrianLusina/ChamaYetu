@@ -8,10 +8,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app.mod_auth.forms import LoginForm
 
 # import module models
-from app.mod_auth.models import User, Data_Base
+from app.models import User, Data_Base, engine
 
 # Create session and connect to DB
-engine = create_engine('sqlite:///app.db')
+# engine = create_engine('sqlite:///app.db')
 Data_Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
