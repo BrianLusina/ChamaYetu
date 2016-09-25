@@ -11,6 +11,6 @@ db_session = DBSession()
 mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 
-@mod_dashboard.route('/dashboard/')
+@mod_dashboard.route('dashboard/')
 def dashboard():
     return render_template('user_dashboard/dashboard.html')
