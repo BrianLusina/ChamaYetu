@@ -2,11 +2,7 @@ from flask import Blueprint, request, render_template, g, flash, session, redire
 from sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
-
-# import module forms
 from app.mod_auth.forms import LoginForm
-
-# import module models
 from app.models import User, Data_Base, engine
 
 # Create session and connect to DB
