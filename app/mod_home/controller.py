@@ -14,12 +14,12 @@ def index():
 
 
 # contact us page
-@mod_home.route('contact/')
+@mod_home.route('contact')
 def contact():
     return render_template("home_page/contact.html")
 
 
 # about us page
-@mod_home.route('about/')
+@mod_home.route('about')
 def about():
     return render_template("home_page/about.html")
