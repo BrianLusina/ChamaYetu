@@ -19,6 +19,6 @@ def not_found(error):
 
 
 # Register blueprint(s) ALL blueprints will be registered here
+app.register_blueprint(home_module)
 app.register_blueprint(auth_module)
 app.register_blueprint(dashboard_module)
-app.register_blueprint(home_module)

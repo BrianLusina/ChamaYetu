@@ -21,5 +21,5 @@ def contact():
 
 # about us page
 @mod_home.route('/about/')
-def contact():
+def about():
     return render_template("home_page/about.html")

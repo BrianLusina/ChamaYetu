@@ -41,7 +41,7 @@ def sign_in():
 
 
 # TODO: redirect to mod_dashboard's controller pass in user name as a url
-@mod_auth.route('/dashboard/>')
+@mod_auth.route('/dashboard/')
 def redirect_dash(user_id):
     """
     Redirect the user to their dashboard
