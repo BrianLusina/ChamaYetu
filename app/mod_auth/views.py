@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_user, logout_user,\
 from controllers import OAuthSignIn
 from app.mod_auth.forms import LoginForm
 from app.models import User, Data_Base, engine
-
+from mod_auth import controllers
 app = Flask(_name__)
 app.config['SECRET_KEY'] = 'unjdg'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
