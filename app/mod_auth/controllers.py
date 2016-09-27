@@ -1,4 +1,5 @@
-from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
+from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for,current_app
+from rauth import OAuth1Service
 from sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -57,7 +58,7 @@ class OAuthSignIn(object):
 
     def __init__(self, provider_name):
         self.provider_name = provider_name
-        credentials= app.config['OAUTH_CREDENTIALS'][provider_name]
+        credentials= current_app.config['OAUTH_CREDENTIALS'][provider_name]
         self.consumer_id = credentials['id']
         self.consumer_secret = credentials['secret']
 
@@ -76,4 +77,18 @@ class OAuthSignIn(object):
 
 
     @classmethod
-    def get_provider()    
+
+    #gets available authentication providers and adds them toa a dict
+    def get_provider(self, provider_name):
+        if self.provider is None:
+            self.providers = {}
+
+            for provider_class in self.__subclasses__():
+                provider = provider_class()
+                self.providers[provider.provider_name] = provider
+        return self.providers[provider_name]
+
+
+class TwitterSignin(OAuthSignIn):
+    pass
+
