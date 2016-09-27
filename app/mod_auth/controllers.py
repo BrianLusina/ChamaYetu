@@ -109,5 +109,20 @@ class TwitterSignin(OAuthSignIn):
         session['request_token'] = request_token
         return redirect(self.service.get_authorize_url(request_token[0]))
 
+#callback method
 
+    def callback(self):
+        request_token = session.pop('request_token')
+        if 'oauth_verifier' not in request.args:
+            return None,None,None
 
+        oauth_session = self.service.get_auth_session(
+            request_token[0],
+            request_token[1],
+            data = {'oauth_verifier': request_args['oauth_verifier']}
+
+            )
+        me = oauth_session.get('account/verify_credentials.json').json()
+        social_id = 'twitter$' + str(me.get('id'))
+        username = me.get('screen_name')
+        return social_id, username, None 
