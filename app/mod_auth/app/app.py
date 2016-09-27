@@ -28,6 +28,7 @@ google = oauth.remote_app('google',
                           consumer_key=GOOGLE_CLIENT_ID,
                           consumer_secret=GOOGLE_CLIENT_SECRET)
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -57,7 +58,6 @@ def index():
 def login():
     callback=url_for('authorized', _external=True)
     return google.authorize(callback=callback)
-
 
 
 @app.route(REDIRECT_URI)
