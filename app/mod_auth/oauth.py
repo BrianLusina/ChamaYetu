@@ -1,4 +1,7 @@
-#base clss for authentication
+from flask import current_app, url_for
+
+
+# base class for authentication
 class OAuthSignIn(object):
     providers = None
 
@@ -8,11 +11,7 @@ class OAuthSignIn(object):
         self.consumer_id = credentials['id']
         self.consumer_secret = credentials['secret']
 
-
     def authorize(self):
-        pass
-
-    def callback(self):
         pass
 
     def callback(self):
