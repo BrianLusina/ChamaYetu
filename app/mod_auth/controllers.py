@@ -45,3 +45,35 @@ def sign_in():
 # TODO: redirect to mod_dashboard's controller pass in user name as a url
 def redirect_dash(user_id):
     return controller.mod_dashboard.route('/dashboard')
+
+
+
+
+#twitter authentication
+
+#base clss for authentication
+class OAuthSignIn(object):
+    providers = None
+
+    def __init__(self, provider_name):
+        self.provider_name = provider_name
+        credentials= app.config['OAUTH_CREDENTIALS'][provider_name]
+        self.consumer_id = credentials['id']
+        self.consumer_secret = credentials['secret']
+
+
+    def authorize(self):
+        pass
+
+    def callback(self):
+        pass
+
+    def callback(self):
+        pass
+
+    def get_callback_url(self):
+        return url_for('oauth_callback',provider = self.provider_name, _external= True)
+
+
+    @classmethod
+    def get_provider()    
