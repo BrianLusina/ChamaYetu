@@ -1,10 +1,10 @@
-from mod_auth import oauth
+from app.mod_auth import oauth
 
-class TwitterSignin(OAuthSignIn):
+class TwitterSignin(oauth.OAuthSignIn):
     def __init__(self):
         super(TwitterSignin, self).__init__('twitter')
         self.service = OAyth1Service(
-        name = 'twitter'
+        name = 'twitter',
         consumer_key = self.consumer_id,
         consumer_secret = self.consumer_secret,
         request_token_url='https://api.twitter.com/oauth/request_token',

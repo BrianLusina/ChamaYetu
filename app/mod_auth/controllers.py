@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app.mod_auth.forms import LoginForm
 from app.models import User, Data_Base, engine
 from app.mod_dashboard import controller
-from mod_auth import twitter
+from app.mod_auth import twitter
 
 
 # Create session and connect to DB

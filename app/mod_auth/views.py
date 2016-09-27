@@ -26,6 +26,10 @@ Data_Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
 
+# Define the blueprint: 'auth', set its url prefix: app.url/auth
+mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+
+
 
 #login manager check if user is logged in
 @lm.user_loader

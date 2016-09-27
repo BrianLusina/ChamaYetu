@@ -10,12 +10,12 @@ class LoginForm(Form):
 
 #def register form
 
-class RegisterForm(Form):
-	email = StringField(
-		'email', validators =[DataRequired(),Email(message=None), Length(min = 6 ,max=40)]
+# class RegisterForm(Form):
+# 	email = StringField(
+# 		'email', validators =[DataRequired(),Email(message=None), Length(min = 6 ,max=40)]
 
-		)
+# 		)
 
-	password = PasswordField('password', validators = [DataRequired[],Length(min = 6,max=25)])
+# 	password = PasswordField('password', validators = [DataRequired[],Length(min = 6,max=25)])
 
-	confirm = PasswordField('repeat password',validators=[DataRequired(),EqualTo('password',message='Password must match')])
+# 	confirm = PasswordField('repeat password',validators=[DataRequired(),EqualTo('password',message='Password must match')])
