@@ -101,4 +101,13 @@ class TwitterSignin(OAuthSignIn):
         access_token_url='https://api.twitter.com/oauth/access_token',
         base_url='https://api.twitter.com/1.1/'
             )
+#authorize method for twitter 
+    def authorize(self):
+        request_token = self.service.get_request_token(
+            params = {'oauth_callback':self.get_callback_url()})
+
+        session['request_token'] = request_token
+        return redirect(self.service.get_authorize_url(request_token[0]))
+
+
 
