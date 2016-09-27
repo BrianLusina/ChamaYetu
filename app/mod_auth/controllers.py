@@ -49,4 +49,3 @@ def redirect_dash(user_id):
     return controller.mod_dashboard.route('/dashboard')
 
 
-
