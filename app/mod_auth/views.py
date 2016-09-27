@@ -32,3 +32,46 @@ db_session = DBSession()
 def load_user(id):
 	return User.query.get(int(id))
 
+
+#route for authentication
+
+@app.route('/authorize/<provider>')
+#route ensures user not loggedin the OAuthSignIn subclass for provider and then invokes authorize()
+
+def oauth_authorize(provider):
+	if not current_user.is_anonymous():
+		return redirect(url_for('index'))
+
+	oauth = OAuthSignIn.get_provider(provider)
+	return oauth.authorize()
+
+
+
+#callback route
+
+@app oauth_callback(provider):
+	if not user.is_anonymous:
+		return redirect(url_for('index'))
+	oauth = OAuthSignIn.get_provider(provider)
+	social_id, username, email = oauth.callback()
+
+	if social_id is  None:
+		flash('Authentication failed')
+		return redirect(url_for('index'))
+
+	user = User.query.filter_by(social_id=social_id).first
+	if not user:
+		user = User(social_id=social_id,nickname = username,email=email)
+		db.session.add(user)
+		db.session.commit()
+
+	login_user(user, True)
+	return redirect(url_for('index'))
+
+
+
+
+
+if _name__ == '__main__':
+	db.create_all()
+	app.run(debug=True)
