@@ -20,10 +20,13 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 @mod_dashboard.route('/dashboard/')
 def dashboard():
-    chama = db_session.query(ChamaGroup).all()
+    chamas = db_session.query(ChamaGroup).filter_by(id=1)
+    print(chamas)
+    # for chama in chamas:
+    #     print chama.name
+    #     print  chama.total_amount
 
-
-    return render_template('user_dashboard/dashboard.html',chama=chama)
+    return render_template('user_dashboard/dashboard.html',chamas=chamas)
 
 
 

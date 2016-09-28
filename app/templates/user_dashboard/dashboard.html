@@ -5,8 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-
-{{ chama}}
-
+{% for chama in chamas %}
+    <p>
+    {{ chama.name}}
+    {{chama.total_amount}}
+    </p>
+{% endfor %}
 </body>
 </html>
