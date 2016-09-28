@@ -30,6 +30,13 @@ class ChamaGroup(Base):
     name = Column(String(130), nullable=False)
     total_amount = Column(Integer, nullable=True)
 
+class Statement(Base):
+    __tablename__ = 'statement'
+
+    amount = Column(Integer, nullable=True)
+    chama_id = Column(Integer,ForeignKey('chama_group.id'))
+    chama = relationship(ChamaGroup)
+
 
 class User(Base):
     """
@@ -60,6 +67,9 @@ class User(Base):
 
     chama_id = Column(Integer, ForeignKey('chama_group.id'))
     chama = relationship(ChamaGroup)
+
+
+
 
     # new instance instantiation procedure
     def __init__(self, name, email, password):

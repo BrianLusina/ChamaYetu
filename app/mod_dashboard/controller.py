@@ -20,7 +20,9 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 @mod_dashboard.route('/dashboard/')
 def dashboard():
+    #query data by id
     chamas = db_session.query(ChamaGroup).filter_by(id=1)
+    #time the data was queried
     date = datetime.now()
     print(chamas)
 
