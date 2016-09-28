@@ -1,12 +1,11 @@
-from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for,current_app
-from rauth import OAuth1Service
+from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
 from sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.mod_auth.forms import LoginForm
 from app.models import User, Data_Base, engine
 from app.mod_dashboard import controller
-from app.mod_auth import twitter
+from rauth import OAuth1Service,OAuth2Service
 
 
 # Create session and connect to DB
@@ -46,6 +45,7 @@ def sign_in():
 
 # TODO: redirect to mod_dashboard's controller pass in user name as a url
 def redirect_dash(user_id):
-    return controller.mod_dashboard.route('/dashboard')
+    return controller.mod_dashboard.route('auth/dashboard')
+
 
 
