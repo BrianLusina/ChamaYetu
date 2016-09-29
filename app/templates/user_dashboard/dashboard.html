@@ -7,12 +7,16 @@
 
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard/style.css')}}">
+	
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard/app.css')}}">
+	
 	<script src="{{ url_for('static', filename='js/vendor/modernizr.js')}}"></script>
 	<title>ChamaYetu</title>
 </head>
 <body>
 	<header class="cd-main-header">
-		<a href="#0" class="cd-logo"><img src="img/cd-logo.svg" alt="Logo"></a>
+<!--todo:	get it working-->
+		<a href="#0" class="cd-logo"><img src="{{url_for('static',filename='img')}}" alt="Logo"></a>
 
 		<div class="cd-search is-hidden">
 			<form action="#0">
@@ -25,7 +29,18 @@
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
 
-				<li><a href="#0">Support</a></li>
+				<li><a href="#0">AMOUNT</a></li>
+<!--
+            	{% for chama in chamas %}
+    <li class="total">
+    <span>AMOUNT</span>
+    {{ chama.name}}
+    {{chama.total_amount}}
+        {{date}}
+                </li>
+
+    {% endfor %}
+-->
 				<li class="has-children account">
 					<a href="#0">
 						<img src="img/cd-avatar.png" alt="avatar">
@@ -102,8 +117,11 @@
 
 					<ul>
 						<li><a href="#0">All Users</a></li>
+<!--	for chairman-->
 						<li><a href="#0">Edit User</a></li>
 						<li><a href="#0">Add User</a></li>
+						
+						
 					</ul>
 				</li>
 			</ul>
@@ -115,17 +133,13 @@
 		</nav>
 
 		<div class="content-wrapper">
-			<h1>Responsive Sidebar Navigation</h1>
+		
+	
+		
+			
 		</div> <!-- .content-wrapper -->
 
-		{% for chama in chamas %}
-    <p>
-    {{ chama.name}}
-    {{chama.total_amount}}
-        {{date}}
-    </p>
-
-{% endfor %}
+		
 	</main> <!-- .cd-main-content -->
 <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
 <script src="{{ url_for('static', filename='js/vendor/jquery-2.1.4.js')}}"></script>
