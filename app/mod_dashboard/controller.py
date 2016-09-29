@@ -1,8 +1,11 @@
+
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for, app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine,ChamaGroup
 from datetime import  datetime
+
+
 
 # Create session and connect to DB
 engine = create_engine('sqlite:///app.db')
@@ -35,6 +38,10 @@ def dashboard():
 
 
 
+@mod_dashboard.route('/dashboard/')
+def statement():
+    #query chama for past
+    statement =db_session.query(statement).filter_by(id = chama_group.id)
 
 
 
