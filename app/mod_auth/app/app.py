@@ -64,6 +64,7 @@ def login():
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
+    # redirect url after login with google
     return redirect(url_for('templates', filename='index.html'))
 
 
