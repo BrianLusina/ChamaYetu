@@ -87,3 +87,4 @@ venv/
 
 # Rope project settings
 .ropeproject
+/app/mod_auth/app/client_id.json
