@@ -1,5 +1,6 @@
+import sqlalchemy
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
-from sqlalchemy.orm import sessionmaker
+from  sqlalchemy.orm import  sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.mod_auth.forms import LoginForm
@@ -9,7 +10,7 @@ from app.mod_dashboard import controller
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
+DBSession = sqlalchemy.orm.sessionmaker(bind=engine)
 db_session = DBSession()
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
