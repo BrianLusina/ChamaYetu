@@ -64,7 +64,7 @@ def login():
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
-    return redirect(url_for('index'))
+    return redirect(url_for('templates', filename='index.html'))
 
 
 @google.tokengetter
@@ -78,4 +78,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
