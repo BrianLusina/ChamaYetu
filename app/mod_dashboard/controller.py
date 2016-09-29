@@ -15,13 +15,14 @@ db_session = DBSession()
 # Define the blueprint: 'dashboard', set its url prefix: app.url/dashboard
 mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
-#establish connection to db
+
 
 
 @mod_dashboard.route('/dashboard/')
 def dashboard():
-    #query data by id
-    chamas = db_session.query(ChamaGroup).filter_by(id=1)
+    #query chama by id
+    #todo: add logic for querying chama total amount as per the users login(chama logged in)
+    chamas = db_session.query(ChamaGroup).filter_by(id=2)
     #time the data was queried
     date = datetime.now()
     print(chamas)
@@ -31,6 +32,8 @@ def dashboard():
     #     print  chama.total_amount
 
     return render_template('user_dashboard/dashboard.html',chamas=chamas, date=date)
+
+
 
 
 

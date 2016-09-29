@@ -1,8 +1,9 @@
 # import database object from main app module
-from sqlalchemy import Column, String, ForeignKey, Integer, Float, DateTime, func, SmallInteger
+from sqlalchemy import Column, String, ForeignKey, Integer,DateTime, Float, DateTime, func, SmallInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from  datetime import datetime
 
 Data_Base = declarative_base()
 
@@ -34,7 +35,11 @@ class Statement(Base):
     __tablename__ = 'statement'
 
     amount = Column(Integer, nullable=True)
+
+    #todo: get  time created  as the default of date column
+    # date = Column(DateTime, default=func.current_timestamp())
     chama_id = Column(Integer,ForeignKey('chama_group.id'))
+
     chama = relationship(ChamaGroup)
 
 
