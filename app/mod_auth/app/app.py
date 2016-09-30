@@ -58,6 +58,9 @@ def login():
     callback = url_for('authorized', _external=True)
     return google.authorize(callback=callback)
 
+@app.route('index')
+def index():
+
 
 @app.route(REDIRECT_URI)
 @google.authorized_handler
@@ -65,7 +68,7 @@ def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
     # redirect url after login with google
-    return redirect(url_for('templates', filename='index.html'))
+    return redirect(url_for('index')
 
 
 @google.tokengetter
