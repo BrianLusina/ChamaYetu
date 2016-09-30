@@ -38,10 +38,6 @@ def dashboard():
 
 
 
-@mod_dashboard.route('/dashboard/')
-def statement():
-    #query chama for past
-    statement =db_session.query(statement).filter_by(id = chama_group.id)
 
 
 
