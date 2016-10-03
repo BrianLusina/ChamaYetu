@@ -1,84 +1,19 @@
-{% macro render_field(field, placeholder=None) %}
-{% if field.errors %}
-<div>
-{% elif field.flags.error %}
-<div>
-{% else %}
-<div>
-{% endif %}
-    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
-    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
-</div>
+
+
+   <form  method="POST" name="login_form">
+  {{ form.hidden_tag() }}
+  {{ form.email.label }} {{ form.email }}<br/>
+  {{ form.password.label }} {{ form.password }}<br/>
+
+  {{ form.submit }}
+</form>
+
+{% macro social_login(provider_id, display_name) %}
+  <form action="{{ url_for('auth.sign_in', provider_id=provider_id) }}" method="POST">
+    <input type="submit" value="Login with {{ display_name }}" />
+  </form>
 {% endmacro %}
 
-<div>
-  <div>
-    <legend>Sign in</legend>
-    {% with errors = get_flashed_messages(category_filter=["error"]) %}
-    {% if errors %}
-    <div>
-    {% for error in errors %}
-    {{ error }}<br>
-    {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
+{{ social_login('twitter', 'Twitter' )}}
 
-    {% if form.errors %}
-    <div>
-    {% for field, error in form.errors.items() %}
-    {% for e in error %}
-    {{ e }}<br>
-    {% endfor %}
-    {% endfor %}
-    </div>
-    {% endif %}
-    <form method="POST" action="." accept-charset="UTF-8" role="form">
-      {{ form.csrf_token }}
-      {{ render_field(form.email, placeholder="Your Email Address",
-                                  autofocus="") }}
-      {{ render_field(form.password, placeholder="Password") }}
-      <div>
-      <label>
-        <input type="checkbox" name="remember" value="1"> Remember Me
-      </label>
-      <a role="button" href="">Forgot your password?</a><span class="clearfix"></span>
-      </div>
-      <button type="submit" name="submit">Sign in</button>
-    </form>
-  </div>
-
-
-  <div>
-
-           {% for message in get_flashed_messages() %}
-               <p><b>Error</b>: {{ message }}</p>
-           {% endfor %}
-           {% if current_user.is_authenticated %}
-               <h2 class="lead">Hi, {{ current_user.first_name }}!</h2>
-               <p><a class="btn btn-default" href="{{ url_for('logout') }}">Logout</a></p>
-           {% else %}
-               <p>
-                   <a class="btn btn-block btn-social btn-facebook" href="{{ url_for('facebook_authorize') }}">
-                       <span class="fa fa-facebook"></span>
-                       Login with Facebook</a>
-               </p>
-           {% endif %}
-
-       </div>>
-
-
-
-  <div>
-sign in with Twitter
-</div>
-
-
-
-
-
-<div>
-sign in with Google>
-</div>
-
-</div>
+{{ social_login('facebook', 'Facebook' )}}
