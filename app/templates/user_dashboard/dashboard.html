@@ -28,19 +28,16 @@
 
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
-
+{% for chama in chamas %}
 				<li><a href="#0">AMOUNT</a></li>
-<!--
-            	{% for chama in chamas %}
-    <li class="total">
-    <span>AMOUNT</span>
+
     {{ chama.name}}
     {{chama.total_amount}}
         {{date}}
                 </li>
 
     {% endfor %}
--->
+
 				<li class="has-children account">
 					<a href="#0">
 						<img src="img/cd-avatar.png" alt="avatar">
@@ -133,7 +130,11 @@
 		</nav>
 
 		<div class="content-wrapper">
-		
+		<div>
+			<h1>MONTHLY STATEMENT</h1>
+
+
+		</div>
 	
 		
 			

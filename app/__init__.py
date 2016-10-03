@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 # import a module or component using its Blueprint handler variable
 from app.mod_auth.controllers import mod_auth as auth_module
-from app.mod_auth.twitter import mod_auth as twitterlogin
+
 from app.mod_dashboard.controller import mod_dashboard as dashboard_module
 from app.mod_home.controller import mod_home as home_module
 
@@ -32,4 +32,3 @@ def error_500(error):
 app.register_blueprint(home_module)
 app.register_blueprint(auth_module)
 app.register_blueprint(dashboard_module)
-app.register_blueprint(twitterlogin)

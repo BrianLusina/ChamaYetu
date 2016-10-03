@@ -47,4 +47,38 @@
       <button type="submit" name="submit">Sign in</button>
     </form>
   </div>
+
+
+  <div>
+
+           {% for message in get_flashed_messages() %}
+               <p><b>Error</b>: {{ message }}</p>
+           {% endfor %}
+           {% if current_user.is_authenticated %}
+               <h2 class="lead">Hi, {{ current_user.first_name }}!</h2>
+               <p><a class="btn btn-default" href="{{ url_for('logout') }}">Logout</a></p>
+           {% else %}
+               <p>
+                   <a class="btn btn-block btn-social btn-facebook" href="{{ url_for('facebook_authorize') }}">
+                       <span class="fa fa-facebook"></span>
+                       Login with Facebook</a>
+               </p>
+           {% endif %}
+
+       </div>>
+
+
+
+  <div>
+sign in with Twitter
+</div>
+
+
+
+
+
+<div>
+sign in with Google>
+</div>
+
 </div>
