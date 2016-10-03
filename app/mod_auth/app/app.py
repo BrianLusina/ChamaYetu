@@ -1,6 +1,5 @@
-from flask import Flask, redirect, url_for, session
+from flask import Flask, redirect, url_for, session, flash
 from flask_oauth import OAuth
-
 
 # You must configure these 3 values from Google APIs console
 # https://code.google.com/apis/console
@@ -39,7 +38,7 @@ def index():
     access_token = access_token[0]
     from urllib2 import Request, urlopen, URLError
 
-    headers = {'Authorization': 'OAuth '+access_token}
+    headers = {'Authorization': 'OAuth ' + access_token}
     req = Request('https://www.googleapis.com/oauth2/v1/userinfo',
                   None, headers)
     try:
@@ -56,16 +55,19 @@ def index():
 
 @app.route('/login')
 def login():
-    callback=url_for('authorized', _external=True)
+    callback = url_for('authorized', _external=True)
     return google.authorize(callback=callback)
 
+@app.route('index')
+def index():
 
 @app.route(REDIRECT_URI)
 @google.authorized_handler
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
-    return redirect(url_for('index'))
+    # redirect url after login with google
+    return redirect(url_for('index')
 
 
 @google.tokengetter
@@ -74,7 +76,7 @@ def get_access_token():
 
 
 def main():
-    app.run()
+    app.run(debug=True)
 
 
 if __name__ == '__main__':

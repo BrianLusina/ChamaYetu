@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Treasurer's Form</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block page_content %}
+{% block content %}
+    <div class="row">
+      <div class="large-6 columns register">
+            <form method=post action="/Treasurer">
+       {{ form.hidden_tag() }}
+      <h2>Fill The Form</h2>
+      <h3>Member Name:</h3><br>
+      {{ form.membersname }}
+      <h3>Amount Deposited</h3><br>
+      {{ form.amountcontributed }}
+      <h3>Amount Withdrawn:</h3><br>
+      {{ form.amountwithdrawn }}<br>
+        <h3> Enter The Date:</h3><br>
+      {{ form.date}}<br>
+      {{ form.submit (size=200) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% endblock %}
+
+</body>
+</html>

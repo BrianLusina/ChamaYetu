@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block page_content %}
+{% block content %}
+    <div class="row">
+    <h1 id="signup">Sign Up</h1>
+        <div class="large-6 columns register">
+            <form method=post action="/register">
+       {{ form.hidden_tag() }}
+      <h2>Register</h2>
+      <h3>Email Or <h3> PhoneNumber:</h3><br>
+      {{ form.email  }} or {{ form.phonenumber }}
+      <h3>Name Of Chama</h3><br>
+      {{ form.chama }}
+      <h3>Role:</h3><br>
+      {{ form.role }}<br>
+      {{ form.submit (size=200) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% endblock %}
+</body>
+</html>
