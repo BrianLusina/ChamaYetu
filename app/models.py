@@ -15,7 +15,7 @@ class Base(Data_Base):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True)
-    date_created = Column(DateTime, nullable=False,server_default=func.now())
+    # date_created = Column(DateTime, datetime.now())
 
 
 
@@ -30,6 +30,8 @@ class ChamaGroup(Base):
 
     name = Column(String(130), nullable=False)
     total_amount = Column(Integer, nullable=True)
+    milestones = Column(String(250), nullable=True)
+
 
 class Statement(Base):
     __tablename__ = 'statement'
@@ -37,7 +39,7 @@ class Statement(Base):
     amount = Column(Integer, nullable=True)
 
     #todo: get  time created  as the default of date column
-    # date = Column(DateTime, default=func.current_timestamp())
+    # date = Column(DateTime,datetime.now())
     chama_id = Column(Integer,ForeignKey('chama_group.id'))
 
     chama = relationship(ChamaGroup)

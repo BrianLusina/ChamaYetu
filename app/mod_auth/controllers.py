@@ -1,4 +1,6 @@
+import authomatic
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
+
 from sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -6,19 +8,11 @@ from app.mod_auth.forms import LoginForm
 
 from app.models import User, Data_Base, engine
 from app.mod_dashboard import controller
-from  app.mod_auth import social
+from  app.mod_auth import twitter
 
-# imports
+# imports for auth
+from flask import Flask, render_template, request, make_response
 
-from flask import Blueprint, url_for, request, current_app, session
-from flask_login import login_user, current_user, login_required
-from flask_security.utils import do_flash
-from flask_babel import gettext as _
-from flask_oauth import OAuthException
-
-from werkzeug.exceptions import abort
-from werkzeug.local import LocalProxy
-from werkzeug.utils import redirect
 
 
 
@@ -65,13 +59,3 @@ def sign_in():
 def redirect_dash(user_id):
     return controller.mod_dashboard.route('auth/dashboard')
 
-
-@mod_auth.route("/login")
-@login_required
-def profile():
-    return render_template(
-        "login.html",
-
-        twitter_conn=social.twitter.get_connection(),
-        facebook_conn=social.facebook.get_connection(),
-        )

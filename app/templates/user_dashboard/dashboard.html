@@ -16,44 +16,43 @@
 <body>
 	<header class="cd-main-header">
 <!--todo:	get it working-->
-		<a href="#0" class="cd-logo"><img src="{{url_for('static',filename='static/img/chama.png')}}" alt="Logo"></a>
+	
+<!--
 
 		<div class="cd-search is-hidden">
 			<form action="#0">
 				<input type="search" placeholder="Search...">
 			</form>
-		</div> <!-- cd-search -->
+		</div>  cd-search 
+-->
 
 		<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
 
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
+			<div class="total">
+			<span>AMOUNT</span>
 {% for chama in chamas %}
-				<li><a href="#0">AMOUNT</a></li>
+				<li>
+                    
 
-    {{ chama.name}}
-    {{chama.total_amount}}
-        {{date}}
-                </li>
+    {{ chama.name}}<br>
+    {{chama.total_amount}}<br>
+<!--        {{date}}<br>-->
+                </li>  
 
     {% endfor %}
+                </div>
+                
+				
 
-				<li class="has-children account">
-					<a href="#0">
-						<img src="img/cd-avatar.png" alt="avatar">
-						Account
-					</a>
-
-					<ul>
-
-						<li><a href="#0">My Account</a></li>
-						<li><a href="#0">Edit Account</a></li>
-						<li><a href="#0">Logout</a></li>
-					</ul>
-				</li>
 			</ul>
 		</nav>
 	</header> <!-- .cd-main-header -->
+	
+	
+	
+	
 
 	<main class="cd-main-content">
 		<nav class="cd-side-nav">
@@ -68,6 +67,7 @@
 						<li><a href="#0">Category 2</a></li>
 					</ul>
 				</li>
+<!--
 				<li class="has-children notifications active">
 					<a href="#0">Notifications<span class="count">3</span></a>
 
@@ -77,7 +77,9 @@
 						<li><a href="#0">Other</a></li>
 					</ul>
 				</li>
+-->
 
+<!--
 				<li class="has-children comments">
 					<a href="#0">Comments</a>
 
@@ -87,18 +89,15 @@
 						<li><a href="#0">Delete Comment</a></li>
 					</ul>
 				</li>
+-->
 			</ul>
 
 			<ul>
 				<li class="cd-label">Secondary</li>
 				<li class="has-children bookmarks">
-					<a href="#0">Bookmarks</a>
+					<a href="url_for(milestone.html)">Add Milestone</a>
 
-					<ul>
-						<li><a href="#0">All Bookmarks</a></li>
-						<li><a href="#0">Edit Bookmark</a></li>
-						<li><a href="#0">Import Bookmark</a></li>
-					</ul>
+
 				</li>
 				<li class="has-children images">
 					<a href="#0">Images</a>
@@ -131,10 +130,17 @@
 
 		<div class="content-wrapper">
 		<div>
+		
 			<h1>MONTHLY STATEMENT</h1>
-
+    {% for x in statement %}
+			<div>
+{{x.amount}}
+            </div>
+    {%endfor%}
 
 		</div>
+		
+		
 	
 		
 			
