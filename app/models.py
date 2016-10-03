@@ -27,8 +27,16 @@ class ChamaGroup(Base):
 
     __tablename__ = "chama_group"
 
+    # Name of the chama
     name = Column(String(130), nullable=False)
+    # This is the total_amount of  money that the chama has currently
     total_amount = Column(Integer, nullable=True)
+    # column for members name
+    members = Column(String, nullable=False)
+    # created another column for individual contributions money()
+    individual = Column(Integer, nullable=True)
+    # Another table for a members role in the Chama
+
 
 
 class User(Base):
