@@ -56,9 +56,9 @@ def treasurer():
         user = db_session.query(User).filter_by(Name=form.amountcontributed.data).first()
         user = db_session.query(User).filter_by(Name=form.amountwithdrawn.data).first()
         user = db_session.query(User).filter_by(Name=form.date.data).first()
-        return redirect(url_for('app/templates/home_page/treasurer.html'))
+        return redirect(url_for('home_page/treasurer.html'))
 
-    return render_template('/app/templates/home_page/treasurer.html')
+    return render_template('home_page/treasurer.html', form=form)
 
 
 @mod_auth.route('/register/', methods=["POST", "GET"])
@@ -70,5 +70,5 @@ def register():
 
         flash(message="Welcome %s" % user.name)
         return redirect('templates/home_page/index')
-    return render_template("auth/register", form=form)
+    return render_template("auth/register.html", form=form)
 
