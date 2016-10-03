@@ -1,12 +1,11 @@
 import sqlalchemy
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
-from  sqlalchemy.orm import  sessionmaker
+from  sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.mod_auth.forms import LoginForm
+from app.mod_auth.forms import LoginForm, TreasurerForm, RegistrationForm
 from app.models import User, Data_Base, engine
 from app.mod_dashboard import controller
-
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -46,3 +45,30 @@ def sign_in():
 # TODO: redirect to mod_dashboard's controller pass in user name as a url
 def redirect_dash(user_id):
     return controller.mod_dashboard.route('/dashboard')
+
+
+@mod_auth.route('/treasurer/', methods=["POST", "GET"])
+def treasurer():
+    form = TreasurerForm()
+
+    if form.validate_on_submit():
+        user = db_session.query(User).filter_by(Name=form.membersname.data).first()
+        user = db_session.query(User).filter_by(Name=form.amountcontributed.data).first()
+        user = db_session.query(User).filter_by(Name=form.amountwithdrawn.data).first()
+        user = db_session.query(User).filter_by(Name=form.date.data).first()
+        return redirect(url_for('app/templates/home_page/treasurer.html'))
+
+    return render_template('/app/templates/home_page/treasurer.html')
+
+
+@mod_auth.route('/register/', methods=["POST", "GET"])
+def register():
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        user = db_session.query(User).filter_by(email=form.email.data).first()
+
+        flash(message="Welcome %s" % user.name)
+        return redirect('templates/home_page/index')
+    return render_template("auth/register", form=form)
+
