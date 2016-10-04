@@ -18,23 +18,32 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 def dashboard():
     # query chama by id
     # todo: add logic for querying chama total amount as per the users login(chama logged in)
-    chamas = db_session.query(ChamaGroup).filter_by(id=2)
+    chamas = db_session.query(ChamaGroup).filter_by(id=1)
     # time the data was queried
     date = datetime.now()
     print(chamas)
 
-    statement = db_session.query(Statement).filter_by(chama_id='chama_group.id')
-    print (statement)
 
-    return render_template('user_dashboard/dashboard.html', chamas=chamas, date=date, statement=statement)
+    # statement = db_session.query(Statement).filter_by(chama_id='chama_group.id')
+    # print (statement)
 
-@mod_dashboard.route('/milestone/')
+
+    return render_template('user_dashboard/dashboard.html', chamas=chamas, date=date)
+
+
+@mod_dashboard.route('/milestone/', methods=['POST'])
 def add_milestone():
-        new_mile = ChamaGroup(milestone = request.form['milestones'])
+    if request.method == 'POST':
+        new_miles = ChamaGroup(name =request.form['name'], total_amount=request.form['total_amount'],milestones = request.form['mile'])
+        print (new_miles)
 
-        session.add(new_mile)
-        session.commit()
+        db_session.add(new_miles)
+        db_session.commit()
+        flash("Milestone successfully added")
 
-        return  render_template(url_for('user_dashboard/milestone.html'), new_mile=new_mile)
+        return render_template('user_dashboard/dashboard.html')
+
+    return render_template('user_dashboard/milestone.html')
+
 
 

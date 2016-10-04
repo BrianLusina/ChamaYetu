@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -15,10 +15,10 @@
 </head>
 <body>
 
-<div class="mile">
+<div class="miles">
         <h3>MILESTONES</h3>
-        <form  method='POST'>
-            <textarea>
+        <form action="{{request.path}}"  method='POST'>
+            <textarea name="mile">
 
             </textarea>
             <button type="submit" value='create'>add</button>
@@ -26,6 +26,10 @@
 
 
 		</div>
+
+<div>
+
+</div>
 
 </body>
 </html>

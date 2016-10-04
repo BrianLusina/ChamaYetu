@@ -38,6 +38,7 @@
 
     {{ chama.name}}<br>
     {{chama.total_amount}}<br>
+    {{chama.milestones}}
 <!--        {{date}}<br>-->
                 </li>  
 
@@ -67,35 +68,14 @@
 						<li><a href="#0">Category 2</a></li>
 					</ul>
 				</li>
-<!--
-				<li class="has-children notifications active">
-					<a href="#0">Notifications<span class="count">3</span></a>
 
-					<ul>
-						<li><a href="#0">All Notifications</a></li>
-						<li><a href="#0">Friends</a></li>
-						<li><a href="#0">Other</a></li>
-					</ul>
-				</li>
--->
-
-<!--
-				<li class="has-children comments">
-					<a href="#0">Comments</a>
-
-					<ul>
-						<li><a href="#0">All Comments</a></li>
-						<li><a href="#0">Edit Comment</a></li>
-						<li><a href="#0">Delete Comment</a></li>
-					</ul>
-				</li>
--->
 			</ul>
 
 			<ul>
 				<li class="cd-label">Secondary</li>
 				<li class="has-children bookmarks">
-					<a href="url_for(milestone.html)">Add Milestone</a>
+					<a href="{{url_for('dashboard.add_milestone')}}">Add Milestone</a>
+					<!--<a href="milestone.html">Add Milestone</a>-->
 
 
 				</li>
@@ -129,6 +109,7 @@
 		</nav>
 
 		<div class="content-wrapper">
+<!--
 		<div>
 		
 			<h1>MONTHLY STATEMENT</h1>
@@ -139,6 +120,22 @@
     {%endfor%}
 
 		</div>
+-->
+<!--		milestones-->
+    
+
+
+
+    <div>
+       {% for chama in chamas %}
+       <p>
+      {{ chama.milestones }}
+       </p>
+        {% endfor %}
+    </div>
+
+
+
 		
 		
 	
