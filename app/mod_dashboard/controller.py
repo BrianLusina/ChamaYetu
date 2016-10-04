@@ -31,17 +31,23 @@ def dashboard():
     return render_template('user_dashboard/dashboard.html', chamas=chamas, date=date)
 
 
-@mod_dashboard.route('/milestone/', methods=['POST'])
+@mod_dashboard.route('/milestone/', methods=['GET','POST'])
 def add_milestone():
+
+    new_miles = db_session.query(ChamaGroup).filter_by(id=1).one()
     if request.method == 'POST':
-        new_miles = ChamaGroup(name =request.form['name'], total_amount=request.form['total_amount'],milestones = request.form['mile'])
-        print (new_miles)
 
-        db_session.add(new_miles)
-        db_session.commit()
-        flash("Milestone successfully added")
+        if request.form['mile']:
 
-        return render_template('user_dashboard/dashboard.html')
+            new_miles.milestones =request.form['mile']
+
+            print (new_miles)
+
+            db_session.add(new_miles)
+            db_session.commit()
+            flash("Milestone successfully added")
+
+        return redirect('dashboard/dashboard')
 
     return render_template('user_dashboard/milestone.html')
 
