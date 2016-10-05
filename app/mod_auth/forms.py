@@ -20,6 +20,16 @@ class TreasurerForm(Form):
     submit = SubmitField("Send to Chama")
 
 
+def validate_username(field):
+    if User.query.filter_by(username=field.data).first():
+        raise ValidationError('Username already in use.')
+
+
+def validate_email(field):
+    if User.query.filter_by(email=field.data).first():
+        raise ValidationError('Email already registered.')
+
+
 class RegistrationForm(Form):
     email = StringField('Email', validators=[DataRequired(), Length(1, 64),
                                              Email()])
@@ -31,11 +41,3 @@ class RegistrationForm(Form):
         DataRequired()])
     role = SelectField("select a field", choices=[('Member'), ('Chairman'), ('Treasurer' ), ('Secretary')])
     submit = SubmitField('Register')
-
-    def validate_email(self, field):
-        if User.query.filter_by(email=field.data).first():
-            raise ValidationError('Email already registered.')
-
-    def validate_username(self, field):
-        if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username already in use.')

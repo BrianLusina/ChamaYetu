@@ -69,6 +69,7 @@ def register():
         user = db_session.query(User).filter_by(email=form.email.data).first()
 
         flash(message="Welcome %s" % user.name)
-        return redirect('templates/home_page/index')
-    return render_template("auth/register.html", form=form)
+        return redirect('home_page/index')
+    return render_template('auth/register.html',
+                           form=form)
 
