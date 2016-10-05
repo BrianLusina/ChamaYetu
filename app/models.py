@@ -3,6 +3,8 @@ from sqlalchemy import Column, String, ForeignKey, Integer,DateTime, Float, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from flask_script import Manager
+
 
 from  datetime import datetime
 
@@ -17,7 +19,7 @@ class Base(Data_Base):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True)
-    # date_created = Column(DateTime, datetime.now())
+    date_created = Column(DateTime, default=func.now())
 
 
 
