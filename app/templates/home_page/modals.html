@@ -1,0 +1,32 @@
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+      <div class="row">
+          <div class="col s12">
+              <ul class="tabs">
+                  <li class="tab col s3"><a href="#login-form">Login</a></li>
+                  <li class="tab col s3"><a class="active" href="#sign-upform">Sign Up</a></li>
+              </ul>
+          </div>
+          <!--Login form-->
+          <div id="login-form" class="col s12">
+              Test 1
+          </div>
+          <!--Sign Up form-->
+          <div id="sign-upform" class="col s12">
+              <form enctype="multipart/form-data" action="/signupAction" method="post">
+                  <input type="text" name="username" class="form-control" placeholder="Username" required>
+                  <br>
+                  <input type="password" class="form-control" name="password" required>
+                  <br>
+                  <input type="submit" class="btn btn-primary" value="Sign Up">
+                  <a href="/" class="btn btn-link active">Cancel</a>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
+

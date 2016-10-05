@@ -9,7 +9,7 @@
           <a class="waves-effect waves-light modal-trigger" href="#login-modal">Login</a>
         </li>
           <!--show sign up modal-->
-        <li><a href="#">Sign Up</a></li>
+        <li><a class="waves-effect waves-light modal-trigger" href="#login-modal">Sign Up</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -26,18 +26,8 @@
         <h5 class="header col s12 light">A modern responsive chama management tool.</h5>
       </div>
       <div class="row center">
-            <!-- Modal Structure -->
-          <div id="login-modal" class="modal">
-              <div class="modal-content">
-                  <h4>Modal Header</h4>
-                  <p>A bunch of text</p>
-              </div>
-              <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-              </div>
-          </div>
-
-<!--        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>-->
+            <!-- Modals for sign up and login -->
+          {% include 'home_page/modals.html' %}
       </div>
       <br><br>
 
