@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.mod_auth.forms import LoginForm
 from app.models import User, Data_Base, engine
-from app.mod_dashboard import controller
 
 
 # Create session and connect to DB
@@ -37,11 +36,6 @@ def sign_in():
 
             # welcome the user because they are awesome
             flash(message="Welcome %s" % user.name)
-            return redirect_dash(user.id)
         flash(message="Wrong email or password", category='error-message')
     return render_template("auth/login.html", form=form)
 
-
-# TODO: redirect to mod_dashboard's controller pass in user name as a url
-def redirect_dash(user_id):
-    return controller.mod_dashboard.route('/dashboard')
