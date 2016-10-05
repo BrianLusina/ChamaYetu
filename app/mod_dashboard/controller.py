@@ -1,6 +1,9 @@
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine
+from firebase import firebase
+
+firebase = firebase.FirebaseApplication()
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
