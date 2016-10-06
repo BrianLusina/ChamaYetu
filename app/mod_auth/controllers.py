@@ -8,7 +8,6 @@ import hashlib
 import uuid
 import re
 
-
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
@@ -30,7 +29,7 @@ def sign_in():
     :return: redirect to dashboard
     """
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
-    firebase_users_node = current_app.app.config.get('FIREBASE_USERS_NODE')
+    firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
     firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
     firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
@@ -51,10 +50,13 @@ def sign_in():
         sha1.update(password)
         password = sha1.hexdigest()
 
-        authentication = firebase.FirebaseAuthentication(firebase_secret, 'some@gmail.com', extra={'id': 123})
+        authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email='lusinabrian@gmail.com',
+                                                         extra={'id': 123})
         firebase.authentication = authentication
         print(authentication.extra)
-        # {'admin': False, 'debug': False, 'email': 'ozgurvt@gmail.com', 'id': 123, 'provider': 'password'}
+        # {'admin': False, 'debug': False, 'email': 'lusinabrian@gmail.com', 'id': 123, 'provider': 'password'}
+        user = authentication.get_user()
+        print user.firebase_auth_token
 
         # Database Directive
         firebase_conn.put(url=firebase_users_node, name=username, data={
