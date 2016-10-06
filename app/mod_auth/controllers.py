@@ -32,6 +32,7 @@ def sign_in():
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     firebase_users_node = current_app.app.config.get('FIREBASE_USERS_NODE')
     firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
+    firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
     if request.method == 'POST':
         # get the full name from the form and split to get the username
@@ -49,6 +50,11 @@ def sign_in():
         sha1 = hashlib.sha1()
         sha1.update(password)
         password = sha1.hexdigest()
+
+        authentication = firebase.FirebaseAuthentication(firebase_secret, 'some@gmail.com', extra={'id': 123})
+        firebase.authentication = authentication
+        print(authentication.extra)
+        # {'admin': False, 'debug': False, 'email': 'ozgurvt@gmail.com', 'id': 123, 'provider': 'password'}
 
         # Database Directive
         firebase_conn.put(url=firebase_users_node, name=username, data={

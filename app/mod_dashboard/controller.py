@@ -14,5 +14,10 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 @mod_dashboard.route('/<username>')
 def dashboard(username):
+    """
+    :param username: the user name of the logged in user that will be appended to the url
+    :return: return the dashboard template
+    """
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     return render_template('user_dashboard/dashboard.html', username=username)
+
