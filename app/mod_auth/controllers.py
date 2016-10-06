@@ -6,6 +6,7 @@ from app.models import User, Data_Base, engine
 from firebase import firebase
 import hashlib
 import uuid
+import re
 
 
 # Create session and connect to DB
@@ -24,28 +25,22 @@ def sign_in():
     Creates a connection to the firebase database to add a user
     get password and username from the sign up form
     hash the password for security reasons
+    Get the form data and store in variables for processing.
+    check if the username/email already exists, if so, alert the user
     :return: redirect to dashboard
     """
-    # form = LoginForm(request.form)
-    #
-    # if form.validate_on_submit():
-    #     user = db_session.query(User).filter_by(email=form.email.data).first()
-    #
-    #     if user and check_password_hash(pwhash=user.password, password=form.password.data):
-    #         session['user_id'] = user.id
-    #
-    #         # welcome the user because they are awesome
-    #         flash(message="Welcome %s" % user.name)
-    #     flash(message="Wrong email or password", category='error-message')
-    # return render_template("auth/login.html", form=form)
-
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
 
     if request.method == 'POST':
-        password = request.form['signup_password']
+        # get the full name from the form and split to get the username
+        full_name = request.form['signup_full_name']
         email = request.form['signup-email']
-        username = request.form['signup_full_name']
+        username = re.split('@', email)[0]
+
+        first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
+        password = request.form['signup_password']
+
         # Generates Random UID for Database
         idx = uuid.uuid4()
         uid = str(idx)
@@ -57,8 +52,11 @@ def sign_in():
         # Database Directive
         firebase_conn.put(url='/users', name=username, data={
             'uid': uid,
-            'usern': username,
-            'userp': password
+            'firstName': first_name,
+            'lastName': last_name,
+            'email': email,
+            'userName': username,
+            'userPassword': password
         }, headers={'print': 'pretty'})
 
         # redirect to dashboard, pass the username to the dashboard
