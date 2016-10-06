@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine, ChamaGroup, Statement
 from datetime import datetime
-
+from firebase import firebase
 
 # Create session and connect to DB
 engine = create_engine('sqlite:///app.db')
