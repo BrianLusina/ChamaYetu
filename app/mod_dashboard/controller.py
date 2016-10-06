@@ -29,15 +29,16 @@ count = 0
 # add milestone
 @mod_dashboard.route('/milestones',methods=['GET','POST'])
 def add_milestone():
-#     form = AddMile()
-#
-#     if form.validate_on_submit():
-#         global count
-#         count +=
-#
-#         putData={'date':form.date.data,'projectname:form.title.data'}
-#         firebase.put('/suggestProject' ,'project' +str(count),putData )
-#         return render_template('user_dashboard/dashboard.html')
+
+    # form = AddMile()
+    #
+    # if form.validate_on_submit():
+    #     global count
+    #     count +=1
+    #
+    #     putData={'date':form.date.data,'projectname:form.title.data'}
+    #     firebase.put('/suggestProject' ,'project' +str(count),putData )
+    #     return render_template('user_dashboard/dashboard.html')
 
     return render_template('user_dashboard/milestone.html')
 
@@ -56,11 +57,11 @@ def sugg_project():
         global count
 
         # increase value of by one everytime method runs
-        count += 1
+        count +=1
 
         # data to be added to firebase
         putData = {'date': form.date.data , 'projectname':form.title.data}
-        firebase_con.put('/suggestProject', name='projectname' + str(count),data= putData, headers={'print','pretty'})
+        firebase_con.put('/chamas', name='projectname' + str(count),data=putData, )
 
         return render_template('user_dashboard/dashboard.html',form=form)
 
