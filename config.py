@@ -15,6 +15,7 @@ FIREBASE_USERS_NODE = '/users'
 FIREBASE_CHAMA_NODE = '/chama'
 FIREBASE_STATEMENTS_NODE = '/statements'
 FIREBASE_MEMBERS_NODE = '/members'
+FIREBASE_SUGGESTEDPROJ_NODE = "/suggestProject"
 
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
