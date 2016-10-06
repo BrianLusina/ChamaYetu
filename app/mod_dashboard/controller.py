@@ -31,7 +31,7 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 #
 #     return render_template('user_dashboard/dashboard.html', chamas=chamas, date=date)
 
-@mod_dashboard.route('/')
+@mod_dashboard.route('/dashboard')
 def dashboard():
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     return render_template('user_dashboard/dashboard.html')
