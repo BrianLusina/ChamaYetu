@@ -16,9 +16,11 @@ mod_dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 def dashboard(username):
     """
     :param username: the user name of the logged in user that will be appended to the url
+    Fetch the data from the chamas node
     :return: return the dashboard template
     """
-    flash("Welcome " + username)
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
+    flash("Welcome back " + username)
+
     return render_template('user_dashboard/dashboard.html', username=username)
 

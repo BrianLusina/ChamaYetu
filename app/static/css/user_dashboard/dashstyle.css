@@ -9,6 +9,15 @@ html, body {
 	font-size: inherit;
 }
 
+/*Side navigation*/
+.side-nav{
+    background-color: #263238;
+}
+
+.side-nav a, .side-nav i{
+    color:white !important;
+}
+
 .demo-avatar {
   width: 48px;
   height: 48px;
