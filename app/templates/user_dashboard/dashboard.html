@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.cyan-light_blue.min.css">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard/style.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page/materialize.min.css')}}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home_page/materialize.min.css')}}" media="screen,projection">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard/dashstyle.css')}}">
   <style>
     #view-source {
       position: fixed;
@@ -63,8 +63,6 @@
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
           </button>
-
-          <a class="btn" onclick="Materialize.toast('{{username}}', 4000)">{{ username }}</a>
 
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
             <li class="mdl-menu__item">About</li>
@@ -233,7 +231,12 @@
         </defs>
       </svg>
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/init.js')}}">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='js/vendor/materialize.min.js')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/dashboard.js')}}">
+  <script type="text/javascript">
+       // Materialize.toast(message, displayLength, className, completeCallback);
+       Materialize.toast('I am a toast!', 4000) // 4000 is the duration of the toast
+  </script>
   </body>
 </html>

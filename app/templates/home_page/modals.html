@@ -11,6 +11,7 @@
                   </li>
               </ul>
           </div>
+
           <!--Login form-->
           <div id="login-form" class="col s12">
               <div class="row">
@@ -18,9 +19,9 @@
                    <!--email-->
                    <div class="row">
                        <div class="input-field col s12">
-                           <i class="material-icons prefix">email</i>
+                           <i class="material-icons prefix">account_circle</i>
                            <input name="login_email" id="login_email" type="email" class="validate">
-                           <label for="login_email" data-error="Please enter a valid email">Email</label>
+                           <label class="modal-labels" for="login_email" data-error="Please enter a valid email">Email</label>
                        </div>
                    </div>
                    <!--password-->
@@ -28,13 +29,45 @@
                        <div class="input-field col s12">
                            <i class="material-icons prefix">lock</i>
                            <input name="login_password" id="login_password" type="password" class="validate">
-                           <label for="login_password">Password</label>
+                           <label class="modal-labels" for="login_password">Password</label>
                        </div>
                    </div>
                       <div class="center-aligned">
                           <input type="submit" class="btn btn-primary" value="Login">
                       </div>
                   </form>
+
+                  <!--or-->
+                  <div class="row center-aligned" style="margin-top:50px">
+                      <div class="col s5">
+                          <hr style="width:50%">
+                      </div>
+
+                      <div class="col s2">
+                          OR
+                      </div>
+
+                      <div class="col s5">
+                          <hr style="width:50%">
+                      </div>
+                  </div>
+
+                  <!--social logins, Facebook, Google, Twitter-->
+                  <div class="row center-aligned" style="margin-top:50px">
+                      <div class="col s4">
+                          <a class="btn" href="#">
+                              <i class="fa fa-facebook"></i>
+                          </a>
+                      </div>
+
+                      <div class="col s4">
+                          <a class="btn" href="#"><i class="fa fa-twitter"></i></a>
+                      </div>
+
+                      <div class="col s4">
+                          <a class="btn" href="#"><i class="fa fa-google"></i></a>
+                      </div>
+                  </div>
               </div>
           </div>
 
@@ -45,25 +78,28 @@
                    <!--first and last names-->
                    <div class="row">
                        <div class="input-field col s12">
+                           <i class="material-icons prefix">account_circle</i>
                            <input name="signup_full_name" id="signup_full_name" type="text" class="validate">
-                           <label for="signup_full_name">Full Name</label>
+                           <label class="modal-labels" for="signup_full_name">Full Name</label>
                        </div>
                    </div>
                    <!--email-->
                    <div class="row">
                        <div class="input-field col s12">
+                           <i class="material-icons prefix">email</i>
                            <input name="signup-email" id="signup-email" type="email" class="validate">
-                           <label for="signup-email" data-error="Please enter a valid email">Email</label>
+                           <label class="modal-labels" for="signup-email" data-error="Please enter a valid email">Email</label>
                        </div>
                    </div>
                    <!--password-->
                    <div class="row">
                        <div class="input-field col s12">
+                           <i class="material-icons prefix">lock</i>
                            <input name="signup_password" id="signup_password" type="password" class="validate">
-                           <label for="signup_password">Password</label>
+                           <label class="modal-labels" for="signup_password">Password</label>
                        </div>
                    </div>
-                  <input type="submit" class="btn btn-primary" value="Sign Up">
+                  <input type="submit" class="btn btn-primary" value="Register">
                </form>
               </div>
           </div>
