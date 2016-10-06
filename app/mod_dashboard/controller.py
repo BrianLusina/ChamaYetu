@@ -18,6 +18,7 @@ def dashboard(username):
     :param username: the user name of the logged in user that will be appended to the url
     :return: return the dashboard template
     """
+    flash("Welcome " + username)
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     return render_template('user_dashboard/dashboard.html', username=username)
 

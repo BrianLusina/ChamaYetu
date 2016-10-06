@@ -50,14 +50,15 @@ def sign_in():
         sha1.update(password)
         password = sha1.hexdigest()
 
-        authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email='lusinabrian@gmail.com',
-                                                         extra={'id': 123})
+        # todo: assign the user an auth token and pass to a session
+        authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=email)
         firebase.authentication = authentication
         print(authentication.extra)
-        # {'admin': False, 'debug': False, 'email': 'lusinabrian@gmail.com', 'id': 123, 'provider': 'password'}
+        # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
         user = authentication.get_user()
-        print user.firebase_auth_token
 
+        # get firebase auth token for the current user and assign to a session to manage user login
+        print user.firebase_auth_token
         # Database Directive
         firebase_conn.put(url=firebase_users_node, name=username, data={
             'uid': uid,
@@ -74,4 +75,12 @@ def sign_in():
 
 @mod_auth.route('/login', methods=["POST", "GET"])
 def login():
+    pass
+
+
+def register_chama():
+    """
+    Method to manage subse
+    :return:
+    """
     pass

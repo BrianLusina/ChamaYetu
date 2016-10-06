@@ -55,11 +55,12 @@
             <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
               <i class="material-icons">search</i>
             </label>
-            <div class="mdl-textfield__expandable-holder">
+              <div class="mdl-textfield__expandable-holder">
               <input class="mdl-textfield__input" type="text" id="search">
               <label class="mdl-textfield__label" for="search">Enter your query...</label>
             </div>
           </div>
+
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
           </button>
@@ -232,11 +233,16 @@
       </svg>
     <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/vendor/materialize.min.js')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/dashboard.js')}}">
-  <script type="text/javascript">
-       // Materialize.toast(message, displayLength, className, completeCallback);
-       Materialize.toast('I am a toast!', 4000) // 4000 is the duration of the toast
-  </script>
+    <script src="{{ url_for('static', filename='js/vendor/materialize.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+    <script type="text/javascript">
+           {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                           Materialize.toast('{{ message }}', 4000) // 4000 is the duration of the toast
+                    {% endfor %}
+                {% endif %}
+          {% endwith %}
+    </script>
   </body>
 </html>
