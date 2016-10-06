@@ -30,6 +30,7 @@ def sign_in():
     :return: redirect to dashboard
     """
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
+    firebase_users_node = current_app.app.config.get('FIREBASE_USERS_NODE')
     firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
 
     if request.method == 'POST':
@@ -50,7 +51,7 @@ def sign_in():
         password = sha1.hexdigest()
 
         # Database Directive
-        firebase_conn.put(url='/users', name=username, data={
+        firebase_conn.put(url=firebase_users_node, name=username, data={
             'uid': uid,
             'firstName': first_name,
             'lastName': last_name,
