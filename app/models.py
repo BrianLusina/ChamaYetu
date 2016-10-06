@@ -1,15 +1,10 @@
 # import database object from main app module
-from sqlalchemy import Column, String, ForeignKey, Integer,DateTime, Float, DateTime, func, SmallInteger
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, DateTime, func, SmallInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
-from flask_script import Manager
-
-
-from  datetime import datetime
 
 Data_Base = declarative_base()
-
 
 
 class Base(Data_Base):
@@ -19,8 +14,8 @@ class Base(Data_Base):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True)
-    date_created = Column(DateTime, default=func.now())
-
+    date_created = Column(DateTime, default=func.current_timestamp())
+    date_modified = Column(DateTime, default=func.current_timestamp(), onupdate=func.current_timestamp())
 
 
 class ChamaGroup(Base):
@@ -34,19 +29,6 @@ class ChamaGroup(Base):
 
     name = Column(String(130), nullable=False)
     total_amount = Column(Integer, nullable=True)
-    milestones = Column(String(250), nullable=True)
-
-
-class Statement(Base):
-    __tablename__ = 'statement'
-
-    amount = Column(Integer, nullable=True)
-
-    #todo: get  time created  as the default of date column
-    # date = Column(DateTime,datetime.now())
-    chama_id = Column(Integer,ForeignKey('chama_group.id'))
-
-    chama = relationship(ChamaGroup)
 
 
 class User(Base):
@@ -65,7 +47,6 @@ class User(Base):
     __tablename__ = "user_table"
 
     first_name = Column(String(128), nullable=False)
-
     last_name = Column(String(128), nullable=False)
     email = Column(String(128), nullable=False, unique=True)
     password = Column(String(192), nullable=False)
@@ -75,22 +56,10 @@ class User(Base):
     status = Column(SmallInteger, nullable=True)
     total_contributed = Column(Integer)
 
-    user_id = Column(Integer, ForeignKey('user_table.id'))
-    provider_id = Column(String(255))
-    provider_user_id = Column(String(255))
-    access_token = Column(String(255))
-
-    secret = Column(String(255))
-    display_name = Column(String(255))
-    profile_url = Column(String(512))
-    image_url = Column(String(512))
     # username = first_name.lower() + last_name.lower() + "@" + chama_group
 
     chama_id = Column(Integer, ForeignKey('chama_group.id'))
     chama = relationship(ChamaGroup)
-
-
-
 
     # new instance instantiation procedure
     def __init__(self, name, email, password):
