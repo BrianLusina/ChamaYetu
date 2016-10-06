@@ -19,3 +19,7 @@ def dashboard():
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     return render_template('user_dashboard/dashboard.html')
 
+
+@mod_dashboard.route('/milestones')
+def add_milestone():
+    return render_template('user_dashboard/milestone.html')
