@@ -66,8 +66,7 @@
           </button>
 
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-            <li class="mdl-menu__item">About</li>
-            <li class="mdl-menu__item">Contact</li>
+            <li class="mdl-menu__item"><a href="{{url_for('home.index')}}">Group Details</a></li>
             <li class="mdl-menu__item"><a href="{{url_for('home.index')}}">Logout</a></li>
           </ul>
         </div>
@@ -119,6 +118,26 @@
         {% include 'user_dashboard/statement_modal.html' %}
 
       <main class="mdl-layout__content mdl-color--grey-100">
+          <!--Graphs-->
+          <div class="mdl-grid">
+            <!--brief graph card-->
+            <div class="mdl-cell">
+                <div class="col s12 m6">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            <span class="card-title">{{ chama_statement.title }}</span>
+                            <p>Date From: {{ chama_statement.dateFrom }}</p>
+                            <p>Date To: {{ chama_statement.dateTo }}</p>
+                            <p>Amount: Ksh. {{ chama_statement.totalAmount }}</p>
+                        </div>
+                        <div class="card-action">
+                            <!--Link to more details about chama details, display modal-->
+                            <a class="modal-trigger" href="#chama-statement-modal">More details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
         <div class="mdl-grid">
             <!--brief statement card-->
             <div class="mdl-cell">
@@ -138,12 +157,13 @@
                 </div>
             </div>
 
-            <!--Updates-->
+            <!--Project details-->
             <div class="mdl-cell">
                 <div class="col s12 m6">
                     <div class="card darken-1">
-                        <div class="card-content white-text">
-                            <span class="card-title">{{ chama_details.projectname }}</span>
+                        <div class="card-content">
+                            <span class="card-title">Project Details</span>
+                            <p>{{ chama_details.projectname }}</p>
                             <p>{{ chama_details.projdate }}</p>
                         </div>
                         <div class="card-action">
@@ -154,45 +174,24 @@
                 </div>
             </div>
 
-          <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-            <div class="demo-separator mdl-cell--1-col"></div>
-            <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
-              <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
-                <h3>View options</h3>
-                <ul>
-                  <li>
-                    <label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                      <input type="checkbox" id="chkbox1" class="mdl-checkbox__input">
-                      <span class="mdl-checkbox__label">Click per object</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label for="chkbox2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                      <input type="checkbox" id="chkbox2" class="mdl-checkbox__input">
-                      <span class="mdl-checkbox__label">Views per object</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label for="chkbox3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                      <input type="checkbox" id="chkbox3" class="mdl-checkbox__input">
-                      <span class="mdl-checkbox__label">Objects selected</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label for="chkbox4" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                      <input type="checkbox" id="chkbox4" class="mdl-checkbox__input">
-                      <span class="mdl-checkbox__label">Objects viewed</span>
-                    </label>
-                  </li>
-                </ul>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-50">Change location</a>
-                <div class="mdl-layout-spacer"></div>
-                <i class="material-icons">location_on</i>
-              </div>
+            <!--Next Meeting details-->
+            <div class="mdl-cell">
+                <div class="col s12 m6">
+                    <div class="card darken-1 mdl-color--deep-purple-500">
+                        <div class="card-content white-text">
+                            <span class="card-title">Next meeting</span>
+                            <p>{{ chama_details.nextMeetingTime }}</p>
+                        </div>
+                        <div class="card-action">
+                            <div class="mdl-card--border">
+                                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-50">{{ chama_details.venue }}</a>
+                                <i class="material-icons">location_on</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
 <!--          <div class="demo-graphs mdl-shadow&#45;&#45;2dp mdl-color&#45;&#45;white mdl-cell mdl-cell&#45;&#45;8-col">
             <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
               <use xlink:href="#chart" />
