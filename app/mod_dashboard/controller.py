@@ -83,8 +83,9 @@ def sugg_project():
         count +=1
 
         # data to be added to firebase
-        putData = {'date': form.date.data , 'projectname':form.title.data}
-        firebase_con.put('/chamas', name='projectname' + str(count),data=putData, )
+        dateData = {'date': form.date.data ,}
+        projData = {'projectname':form.title.data}
+        firebase_con.put('/chamas/boda', name='projects',data={'Date':dateData,'project':projData} )
 
         return render_template('user_dashboard/dashboard.html',form=form)
 
