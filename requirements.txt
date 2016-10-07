@@ -43,7 +43,7 @@ pytz==2016.6.1
 query-string==0.0.0
 rauth==0.7.2
 request==0.0.0
-requests==1.1.0
+requests==2.11.1
 requests-oauthlib==0.7.0
 rsa==3.4.2
 setupfiles==0.0.13
