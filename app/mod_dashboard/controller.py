@@ -42,3 +42,13 @@ def dashboard(username):
     return render_template('user_dashboard/dashboard.html', username=username,
                            chama_details=chama_details, chama_statement=chama_statement)
 
+# add milestone
+@mod_dashboard.route('/milestones')
+def add_milestone():
+    return render_template('user_dashboard/milestone.html')
+
+#suggest project
+
+@mod_dashboard.route('/project')
+def sugg_project():
+    return  render_template('user_dashboard/project.html')
