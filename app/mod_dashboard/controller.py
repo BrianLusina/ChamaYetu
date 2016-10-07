@@ -7,6 +7,7 @@ from firebase import firebase
 from pprint import pprint
 from .form import SuggProject
 import datetime
+from pprint import pprint
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -45,6 +46,19 @@ def dashboard(username):
     return render_template('user_dashboard/dashboard.html', username=username,
                            chama_details=chama_details, chama_statement=chama_statement)
 
+    # welcome our amazing user
+    flash("Welcome back " + username)
+
+    # query the user's chama (boda in this case)
+    user_chamas = firebase_conn.get(firebase_users_node+"/"+username+"/chamaGroups/boda", None)
+
+    # connect to that chama to get specific details
+    chama_details = firebase_conn.get(firebase_chama_node+"/boda", None)
+    chama_statement = firebase_conn.get(firebase_statements_node+"/boda", None)
+    pprint(chama_details)
+
+    return render_template('user_dashboard/dashboard.html', username=username,
+                           chama_details=chama_details, chama_statement=chama_statement)
 
 # global var
 count = 0
@@ -84,8 +98,9 @@ def sugg_project():
         count +=1
 
         # data to be added to firebase
-        putData = {'date': form.date.data , 'projectname':form.title.data}
-        firebase_con.put('/chamas', name='projectname' + str(count),data=putData, )
+        dateData = {'date': form.date.data ,}
+        projData = {'projectname':form.title.data}
+        firebase_con.put('/chamas/boda', name='projects',data={'Date':dateData,'project':projData} )
 
         return render_template('user_dashboard/dashboard.html',form=form)
 
