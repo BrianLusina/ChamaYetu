@@ -45,8 +45,11 @@ def dashboard(username):
     return render_template('user_dashboard/dashboard.html', username=username,
                            chama_details=chama_details, chama_statement=chama_statement)
 
+
 # global var
 count = 0
+
+
 # add milestone
 @mod_dashboard.route('/milestones',methods=['GET','POST'])
 def add_milestone():
