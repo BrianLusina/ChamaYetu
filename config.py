@@ -12,7 +12,7 @@ DATABASE_CONNECT_OPTIONS = {}
 
 FIREBASE_DB_CONN = "https://chamayetu-ddca4.firebaseio.com/"
 FIREBASE_USERS_NODE = '/users'
-FIREBASE_CHAMA_NODE = '/chama'
+FIREBASE_CHAMA_NODE = '/chamas'
 FIREBASE_STATEMENTS_NODE = '/statements'
 FIREBASE_MEMBERS_NODE = '/members'
 FIREBASE_WEB_KEY = "AIzaSyAfNGG37gtrI09dy1nkpLt6ppX_NSgzM70"

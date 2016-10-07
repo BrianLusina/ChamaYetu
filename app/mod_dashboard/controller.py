@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, \
     g, flash, session, redirect, url_for, current_app
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine
+from firebase import firebase
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -20,7 +21,22 @@ def dashboard(username):
     :return: return the dashboard template
     """
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
+    firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
+    firebase_chama_node = current_app.config.get('FIREBASE_CHAMA_NODE')
+    firebase_statements_node = current_app.config.get('FIREBASE_STATEMENTS_NODE')
+    firebase_members_node = current_app.config.get('FIREBASE_MEMBERS_NODE')
+    firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
+
+    # welcome our amazing user
     flash("Welcome back " + username)
+
+    # query the user's chama (boda in this case)
+    user_chamas = firebase_conn.get(firebase_users_node+"/"+username+"/chamaGroups/boda", None)
+
+    # connect to that chama to get specific details
+    if (user_chamas):
+        chama_details = firebase_conn.get(firebase_chama_node+"/boda", None)
+        print(chama_details)
 
     return render_template('user_dashboard/dashboard.html', username=username)
 

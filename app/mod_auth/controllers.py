@@ -84,8 +84,9 @@ def login():
     :return: redirect to dashboard
     """
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
-    firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
     firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
+
+    firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
     firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
     if request.method == 'POST':
@@ -93,10 +94,10 @@ def login():
         email = request.form['login_email']
         password = request.form['login_password']
         username = re.split('@', email)[0].lower()
+
         # get connection to user's node and query specific user
         user = firebase_conn.get(firebase_users_node, username)
         if check_user(user):
-
             return redirect(url_for(endpoint='dashboard.dashboard', username=username))
 
         # todo: assign the user an auth token and pass to a session
