@@ -90,13 +90,14 @@ def login():
 
     if request.method == 'POST':
         # get the full name from the form and split to get the username
-        email = request.form['login-email']
+        email = request.form['login_email']
         password = request.form['login_password']
-
+        username = re.split('@', email)[0].lower()
         # get connection to user's node and query specific user
-        user = firebase_base_url.get(firebase_users_node, re.split('@', email)[0].lower())
+        user = firebase_conn.get(firebase_users_node, username)
         if check_user(user):
-            return redirect(url_for(endpoint='dashboard.dashboard', username=email))
+
+            return redirect(url_for(endpoint='dashboard.dashboard', username=username))
 
         # todo: assign the user an auth token and pass to a session
         authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=email)
