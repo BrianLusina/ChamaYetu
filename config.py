@@ -16,6 +16,7 @@ FIREBASE_CHAMA_NODE = '/chamas'
 FIREBASE_STATEMENTS_NODE = '/statements'
 FIREBASE_MEMBERS_NODE = '/members'
 FIREBASE_WEB_KEY = "AIzaSyAfNGG37gtrI09dy1nkpLt6ppX_NSgzM70"
+FIREBASE_SUGGESTEDPROJ_NODE = "/suggestProject"
 
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
