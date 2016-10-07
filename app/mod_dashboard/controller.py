@@ -65,7 +65,7 @@ count = 0
 
 
 # add milestone
-@mod_dashboard.route('/milestones',methods=['GET','POST'])
+@mod_dashboard.route('/milestones', methods=['GET','POST'])
 def add_milestone():
 
     # form = AddMile()
