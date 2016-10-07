@@ -122,17 +122,20 @@
                 <div class="col s12 m6">
                     <div class="card blue-grey darken-1">
                         <div class="card-content white-text">
-                            <span class="card-title">Card Title</span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                            <span class="card-title">{{ chama_statement.title }}</span>
+                            <p>Date From: {{ chama_statement.dateFrom }}</p>
+                            <p>Date To: {{ chama_statement.dateTo }}</p>
+                            <p>Amount: Ksh. {{ chama_statement.totalAmount }}</p>
                         </div>
                         <div class="card-action">
-                            <a href="#">This is a link</a>
-                            <a href="#">This is a link</a>
+                            <!--Link to more details about chama details, display modal-->
+                            <a class="modal-trigger" href="#chama-statement-modal">More details</a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Modals for sign up and login -->
+            {% include 'dashboard/statement_modal.html' %}
 
           <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
             <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">

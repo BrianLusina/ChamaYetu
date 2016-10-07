@@ -3,6 +3,7 @@ from flask import Blueprint, request, render_template, \
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine
 from firebase import firebase
+from pprint import pprint
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -34,9 +35,10 @@ def dashboard(username):
     user_chamas = firebase_conn.get(firebase_users_node+"/"+username+"/chamaGroups/boda", None)
 
     # connect to that chama to get specific details
-    if (user_chamas):
-        chama_details = firebase_conn.get(firebase_chama_node+"/boda", None)
-        print(chama_details)
+    chama_details = firebase_conn.get(firebase_chama_node+"/boda", None)
+    chama_statement = firebase_conn.get(firebase_statements_node+"/boda", None)
+    pprint(chama_details)
 
-    return render_template('user_dashboard/dashboard.html', username=username)
+    return render_template('user_dashboard/dashboard.html', username=username,
+                           chama_details=chama_details, chama_statement=chama_statement)
 
