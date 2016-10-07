@@ -75,7 +75,38 @@ def sign_in():
 
 @mod_auth.route('/login', methods=["POST", "GET"])
 def login():
-    pass
+    """
+    Creates a connection to the firebase database to add a user
+    get password and username from the sign up form
+    hash the password for security reasons
+    Get the form data and store in variables for processing.
+    check if the username/email already exists, if so, alert the user
+    :return: redirect to dashboard
+    """
+    firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
+    firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
+    firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
+    firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
+
+    if request.method == 'POST':
+        # get the full name from the form and split to get the username
+        email = request.form['login-email']
+        password = request.form['login_password']
+
+        # get connection to user's node and query specific user
+        user = firebase_base_url.get(firebase_users_node, re.split('@', email)[0].lower())
+        if check_user(user):
+            return redirect(url_for(endpoint='dashboard.dashboard', username=email))
+
+        # todo: assign the user an auth token and pass to a session
+        authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=email)
+        firebase.authentication = authentication
+        print(authentication.extra)
+        # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
+        user = authentication.get_user()
+
+        # redirect to dashboard, pass the username to the dashboard
+        return redirect(url_for(endpoint='dashboard.dashboard', username=email))
 
 
 def register_chama():
@@ -84,3 +115,13 @@ def register_chama():
     :return:
     """
     pass
+
+
+def check_user(user):
+    """
+    Helper function that validates a user on login
+    :param user the user to validate
+    :return:
+    """
+    if user:
+        return True
