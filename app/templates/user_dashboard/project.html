@@ -15,13 +15,15 @@
 </head>
 <body>
 
-<div class="miles">
+<div class="project">
         <h3>PROJECT IDEA</h3>
-        <form action="{{url_for('dashboard.add_milestone')}}"  method ='POST'>
-            <textarea name="mile">
-
+        <form action="{{ url_for('dashboard.sugg_project') }}"  method ='POST'>
+            <textarea name="">
+				{{ form }}
+				
             </textarea>
-            <button type="submit" value='create'>Suggest project</button>
+			
+            <button type="submit" value='add'>Suggest project</button>
         </form>
 
 
