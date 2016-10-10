@@ -10,6 +10,14 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 DATABASE_CONNECT_OPTIONS = {}
 
+FIREBASE_DB_CONN = "https://chamayetu-ddca4.firebaseio.com/"
+FIREBASE_USERS_NODE = '/users'
+FIREBASE_CHAMA_NODE = '/chamas'
+FIREBASE_STATEMENTS_NODE = '/statements'
+FIREBASE_MEMBERS_NODE = '/members'
+FIREBASE_WEB_KEY = "AIzaSyAfNGG37gtrI09dy1nkpLt6ppX_NSgzM70"
+FIREBASE_SUGGESTEDPROJ_NODE = "/suggestProject"
+
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
 # incoming requests using one and performing background

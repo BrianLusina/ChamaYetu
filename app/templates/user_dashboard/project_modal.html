@@ -1,0 +1,11 @@
+<div id="project-modal" class="modal">
+	<div class="modal-content">
+        <h3>PROJECT IDEA</h3>
+        <form action="{{ url_for('dashboard.sugg_project') }}"  method ='POST'>
+            <textarea name="">
+				{{ form }}
+            </textarea>
+            <button type="submit" value='add'>Suggest project</button>
+        </form>
+	</div>
+</div>
