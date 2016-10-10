@@ -1,7 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 # import a module or component using its Blueprint handler variable
-from app.mod_auth.controllers import mod_auth as auth_module
+from app.mod_auth.views import mod_auth as auth_module
 from app.mod_dashboard.controller import mod_dashboard as dashboard_module
 from app.mod_home.controller import mod_home as home_module
 
@@ -26,6 +26,14 @@ def error_403(error):
 @app.errorhandler(403)
 def error_500(error):
     return render_template("500.html"), 500
+
+
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 # Register blueprint(s) ALL blueprints will be registered here
 app.register_blueprint(home_module)
