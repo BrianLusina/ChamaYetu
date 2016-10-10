@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+# <<<<<<< HEAD
 import sqlalchemy
-=======
+# =======
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for, \
     current_app
 from sqlalchemy.orm import sessionmaker
@@ -10,18 +10,18 @@ from firebase import firebase
 import hashlib
 import uuid
 import re
->>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
+# >>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
 from  sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
-<<<<<<< HEAD
+# <<<<<<< HEAD
 from app.mod_auth.forms import LoginForm, TreasurerForm, RegistrationForm
 from app.models import User, Data_Base, engine
 from app.mod_dashboard import controller
-=======
+# =======
 from app.mod_auth.forms import LoginForm
->>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
+# >>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -104,7 +104,7 @@ def login():
     firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
     firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
-<<<<<<< HEAD
+# <<<<<<< HEAD
 # TODO: redirect to mod_dashboard's controller pass in user name as a url
 def redirect_dash(user_id):
     return controller.mod_dashboard.route('/dashboard')
@@ -136,7 +136,6 @@ def register():
     return render_template('auth/register.html',
                            form=form)
 
-=======
     if request.method == 'POST':
         # get the full name from the form and split to get the username
         email = request.form['login_email']
@@ -154,7 +153,6 @@ def register():
         print(authentication.extra)
         # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
         user = authentication.get_user()
-
         # redirect to dashboard, pass the username to the dashboard
         return redirect(url_for(endpoint='dashboard.dashboard', username=email))
 
@@ -175,4 +173,4 @@ def check_user(user):
     """
     if user:
         return True
->>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
+
