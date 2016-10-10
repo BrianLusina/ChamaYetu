@@ -15,7 +15,7 @@ DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
 
 
-def signup_handler(email, password, full_name, ):
+def signup_handler(email, password, full_name):
     """
     :param email: email the user enters in the form
     :param password: password entered by the user

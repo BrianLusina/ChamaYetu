@@ -27,7 +27,8 @@ def sign_in():
 
         if signup_handler(email=email, password=password, full_name=full_name):
             # redirect to dashboard, pass the username to the dashboard
-            return redirect(url_for(endpoint='dashboard.dashboard', username=username))
+            return redirect(url_for(endpoint='dashboard.dashboard', username=username, scheme='https'))
+    return render_template('home_page/index.html')
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])

@@ -43,9 +43,6 @@ def dashboard(username):
     chama_statement = firebase_conn.get(firebase_statements_node+"/boda", None)
     pprint(chama_details)
 
-    return render_template('user_dashboard/dashboard.html', username=username,
-                           chama_details=chama_details, chama_statement=chama_statement)
-
     # welcome our amazing user
     flash("Welcome back " + username)
 
@@ -58,7 +55,7 @@ def dashboard(username):
     pprint(chama_details)
 
     return render_template('user_dashboard/dashboard.html', username=username,
-                           chama_details=chama_details, chama_statement=chama_statement)
+                           chama_details=chama_details, chama_statement=chama_statement, scheme='https')
 
 # global var
 count = 0
