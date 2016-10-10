@@ -5,4 +5,5 @@
 
     //trigger all modals
     $('.modal-trigger').leanModal();
-}));
+    });
+})(jQuery);
