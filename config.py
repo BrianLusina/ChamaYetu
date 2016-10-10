@@ -1,8 +1,10 @@
+# Define the application directory
+import os
+import pyrebase
+
 # Statement for enabling the development environment
 DEBUG = True
 
-# Define the application directory
-import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Define the database - we are working with
@@ -17,6 +19,16 @@ FIREBASE_STATEMENTS_NODE = '/statements'
 FIREBASE_MEMBERS_NODE = '/members'
 FIREBASE_WEB_KEY = "AIzaSyAfNGG37gtrI09dy1nkpLt6ppX_NSgzM70"
 FIREBASE_SUGGESTEDPROJ_NODE = "/suggestProject"
+
+config = {
+    "apiKey": FIREBASE_WEB_KEY,
+    "authDomain": "chamayetu-ddca4.firebaseapp.com",
+    "databaseURL": FIREBASE_DB_CONN,
+    "storageBucket": "chamayetu-ddca4.appspot.com",
+    "messagingSenderId": "128820725100"
+}
+
+FIREBASE_CONFIG = pyrebase.initialize_app(config)
 
 # Application threads. A common general assumption is
 # using 2 per available processor cores - to handle
