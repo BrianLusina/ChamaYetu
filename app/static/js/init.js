@@ -5,5 +5,4 @@
 
     //trigger all modals
     $('.modal-trigger').leanModal();
-}); // end of document ready
-
+}));
