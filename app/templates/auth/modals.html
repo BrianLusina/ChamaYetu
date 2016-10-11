@@ -1,5 +1,5 @@
 <div id="login-modal" class="modal">
-  <div class="modal-content container">
+  <div class="modal-content">
       <div class="row">
           <div class="col s12">
               <ul class="tabs">
@@ -7,20 +7,21 @@
                       <a href="#login-form" style="color:#353646">Login</a>
                   </li>
                   <li class="tab col s6">
-                      <a class="active" href="#sign-upform">Sign Up</a>
+                      <a class="active" href="#sign-upform" style="color:#353646">Sign Up</a>
                   </li>
               </ul>
           </div>
+
           <!--Login form-->
           <div id="login-form" class="col s12">
               <div class="row">
-                  <form class="col s12" enctype="multipart/form-data" action="/loginAction" method="post">
+                  <form class="col s12" enctype="multipart/form-data" action="{{ url_for('auth.login')}}" method="post">
                    <!--email-->
                    <div class="row">
                        <div class="input-field col s12">
-                           <i class="material-icons prefix">email</i>
+                           <i class="material-icons prefix">account_circle</i>
                            <input name="login_email" id="login_email" type="email" class="validate">
-                           <label for="login_email" data-error="Please enter a valid email">Email</label>
+                           <label class="modal-labels" for="login_email" data-error="Please enter a valid email">Email</label>
                        </div>
                    </div>
                    <!--password-->
@@ -28,46 +29,80 @@
                        <div class="input-field col s12">
                            <i class="material-icons prefix">lock</i>
                            <input name="login_password" id="login_password" type="password" class="validate">
-                           <label for="login_password">Password</label>
+                           <label class="modal-labels" for="login_password">Password</label>
                        </div>
                    </div>
                       <div class="center-aligned">
                           <input type="submit" class="btn btn-primary" value="Login">
                       </div>
                   </form>
+
+                  <!--or-->
+                  <div class="row center-aligned" style="margin-top:50px">
+                      <div class="col s5">
+                          <hr style="width:50%">
+                      </div>
+
+                      <div class="col s2">
+                          OR
+                      </div>
+
+                      <div class="col s5">
+                          <hr style="width:50%">
+                      </div>
+                  </div>
+
+                  <!--social logins, Facebook, Google, Twitter-->
+                  <div class="row center-aligned" style="margin-top:50px">
+                      <div class="col s4">
+                          <a class="btn" href="#">
+                              <i class="fa fa-facebook"></i>
+                          </a>
+                      </div>
+
+                      <div class="col s4">
+                          <a class="btn" href="#"><i class="fa fa-twitter"></i></a>
+                      </div>
+
+                      <div class="col s4">
+                          <a class="btn" href="#"><i class="fa fa-google"></i></a>
+                      </div>
+                  </div>
               </div>
           </div>
 
           <!--Sign Up form-->
           <div id="sign-upform" class="col s12">
               <div class="row">
-               <form class="col s12" enctype="multipart/form-data" action="/signupAction" method="post">
+                  <form class="col s12" enctype="multipart/form-data" action="{{url_for('auth.sign_in')}}" method="post">
                    <!--first and last names-->
                    <div class="row">
                        <div class="input-field col s12">
+                           <i class="material-icons prefix">account_circle</i>
                            <input name="signup_full_name" id="signup_full_name" type="text" class="validate">
-                           <label for="signup_full_name">Full Name</label>
+                           <label class="modal-labels" for="signup_full_name">Full Name</label>
                        </div>
                    </div>
                    <!--email-->
                    <div class="row">
                        <div class="input-field col s12">
+                           <i class="material-icons prefix">email</i>
                            <input name="signup-email" id="signup-email" type="email" class="validate">
-                           <label for="signup-email" data-error="Please enter a valid email">Email</label>
+                           <label class="modal-labels" for="signup-email" data-error="Please enter a valid email">Email</label>
                        </div>
                    </div>
                    <!--password-->
                    <div class="row">
                        <div class="input-field col s12">
+                           <i class="material-icons prefix">lock</i>
                            <input name="signup_password" id="signup_password" type="password" class="validate">
-                           <label for="signup_password">Password</label>
+                           <label class="modal-labels" for="signup_password">Password</label>
                        </div>
                    </div>
-                  <input type="submit" class="btn btn-primary" value="Sign Up">
+                  <input type="submit" class="btn btn-primary" value="Register">
                </form>
               </div>
           </div>
       </div>
   </div>
 </div>
-
