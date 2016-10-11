@@ -18,9 +18,9 @@ db_session = DBSession()
 class Auth(object):
     """
     Class that handles the authentication variables with Firebase
-    :firebase_auth gets the configuration dictionary that will be used for authenticating the user
-    :firebase_db_url contains the database url to Firebase
-    :firebase_conn connects to the database
+    firebase_auth gets the configuration dictionary that will be used for authenticating the user
+    firebase_db_url contains the database url to Firebase
+    firebase_conn connects to the database
     """
     @staticmethod
     def firebase_auth():
@@ -35,11 +35,12 @@ class Auth(object):
         return firebase.FirebaseApplication(Auth.firebase_db_url(), None)
 
 
-def signup_handler(email, password, full_name):
+def signup_handler(email, password, full_name, username):
     """
     Handles user sign up. The Try...catch block creates a new user with email and password
     Checks if the user already exists in the database and returns true if they do not.
     The user is then created in the database and their credentials are passed to the database
+    :param username: auto-generated username
     :param email: email the user enters in the form
     :param password: password entered by the user
     :param full_name: full name of the user
@@ -47,8 +48,6 @@ def signup_handler(email, password, full_name):
     """
 
     auth = Auth.firebase_auth()
-
-    username = re.split('@', email)[0]
 
     # Generates Random UID for Database
     idx = uuid.uuid4()
@@ -127,7 +126,7 @@ def database_directive(uid, username, full_name, email, password):
 
     first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
 
-    Auth.firebase_conn().post(url='/users', name=username, data={
+    Auth.firebase_conn().put(url='/users', name=username,data={
         'uid': uid,
         'firstName': first_name,
         'lastName': last_name,

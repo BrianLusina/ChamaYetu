@@ -1,5 +1,4 @@
-from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for, \
-    current_app
+from flask import Blueprint, request, render_template, flash, redirect, url_for
 from .controllers import login_handler, signup_handler
 import re
 
@@ -25,7 +24,7 @@ def sign_in():
         password = request.form['signup_password']
         username = re.split('@', email)[0]
 
-        if signup_handler(email=email, password=password, full_name=full_name):
+        if signup_handler(email=email, password=password, full_name=full_name, username=username):
             # redirect to dashboard, pass the username to the dashboard
             return redirect(url_for(endpoint='dashboard.dashboard', username=username, scheme='https'))
         else:
