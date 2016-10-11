@@ -4,9 +4,11 @@ from flask import Flask, render_template, request, redirect
 from app.mod_auth.views import mod_auth as auth_module
 from app.mod_dashboard.controller import mod_dashboard as dashboard_module
 from app.mod_home.controller import mod_home as home_module
+from flask_sslify import SSLify
 
 # Define the WSGI application object
 app = Flask(__name__)
+sslify = SSLify(app)
 
 # configurations
 app.config.from_object('config')
