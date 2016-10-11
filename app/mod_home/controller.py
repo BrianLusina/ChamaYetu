@@ -13,8 +13,6 @@ def index():
     """
     :return: Render template for home page
     """
-    if TemplateNotFound('404.html', message=None):
-        return render_template('404.html')
     return render_template("home/index.html")
 
 
