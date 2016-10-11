@@ -2,17 +2,28 @@ from flask import Blueprint, request, g, flash, session, redirect, url_for, \
     current_app
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine
-from firebase import firebase
 import hashlib
 import uuid
 import re
 from sqlalchemy.orm import sessionmaker
 from firebase_token_generator import create_token
+from firebase import firebase
+from requests import HTTPError
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
+
+
+class Auth(object):
+    """
+    Class that handles the authentication variables with Firebase
+    :firebase_auth gets the configuration dictionary that will be used for authenticating the user
+    """
+    @staticmethod
+    def firebase_auth():
+        return current_app.config.get('FIREBASE_CONFIG').auth()
 
 
 def signup_handler(email, password, full_name):
@@ -23,8 +34,7 @@ def signup_handler(email, password, full_name):
     :return: :rtype boolean depending on success of the user signing up
     """
 
-    # get a reference to the auth service
-    auth = firebase_configurations()['firebase_config'].auth()
+    auth = Auth.firebase_auth()
 
     username = re.split('@', email)[0]
 
@@ -37,10 +47,14 @@ def signup_handler(email, password, full_name):
     sha1.update(password)
     password = sha1.hexdigest()
 
-    # create a user with email and password
-    auth.create_user_with_email_and_password(email, password)
-    database_directive(uid, username, full_name, email, password)
-    return True
+    # create a user with email and password, check if the user email already exists
+    try:
+        auth.create_user_with_email_and_password(email, password)
+        database_directive(uid, username, full_name, email, password)
+        return True
+    except HTTPError:
+        # if the email already exists, return false to display an error in the view
+        return False
 
 
 def login_handler(login_email, password):
@@ -89,16 +103,6 @@ def check_user(user):
         return True
 
 
-def firebase_configurations():
-    return {
-        "firebase_config": current_app.config.get('FIREBASE_CONFIG'),
-        "firebase_base_url": current_app.config.get('FIREBASE_DB_CONN'),
-        "firebase_users_node": current_app.config.get('FIREBASE_USERS_NODE'),
-        "firebase_conn": firebase.FirebaseApplication("FIREBASE_DB_CONN", None),
-        "firebase_secret": current_app.config.get("FIREBASE_WEB_KEY")
-    }
-
-
 def database_directive(uid, username, full_name, email, password):
     """
     Adds the user to the database with the following params
@@ -111,11 +115,12 @@ def database_directive(uid, username, full_name, email, password):
     """
 
     first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
-    firebase_secret = firebase_configurations()["firebase_secret"]
-    firebase_conn = firebase_configurations()["firebase_conn"]
+
+    firebase_base_url = current_app.config.get('FIREBASE_DB_CONN'),
+    firebase_conn = firebase.FirebaseApplication(firebase_base_url, None),
 
     # Database Directive
-    firebase_conn.put(url='/users', name=username, data={
+    firebase_conn.post(url='/users', name=username, data={
         'uid': uid,
         'firstName': first_name,
         'lastName': last_name,
