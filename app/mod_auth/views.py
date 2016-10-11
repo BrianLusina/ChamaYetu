@@ -32,7 +32,7 @@ def sign_in():
             # Display error
             flash("This email already exists")
 
-    return render_template('home_page/index.html')
+    return render_template('home/index.html')
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])

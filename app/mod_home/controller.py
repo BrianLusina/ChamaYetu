@@ -15,16 +15,16 @@ def index():
     """
     if TemplateNotFound('404.html', message=None):
         return render_template('404.html')
-    return render_template("home_page/index.html")
+    return render_template("home/index.html")
 
 
 # contact us page
 @mod_home.route('contact')
 def contact():
-    return render_template("home_page/contact.html")
+    return render_template("home/contact.html")
 
 
 # about us page
 @mod_home.route('about')
 def about():
-    return render_template("home_page/about.html")
+    return render_template("home/about.html")
