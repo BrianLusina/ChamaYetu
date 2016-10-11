@@ -1,6 +1,5 @@
 from flask import Blueprint, request, render_template,\
     g, flash, session, redirect, url_for, current_app
-from jinja2 import TemplateNotFound
 
 # Define the blueprint: 'auth', set its url prefix: app.url/
 mod_home = Blueprint('home', __name__, url_prefix='/')

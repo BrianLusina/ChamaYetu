@@ -1,5 +1,4 @@
-from flask import Blueprint, request, g, flash, session, redirect, url_for, \
-    current_app
+from flask import request, g, session, redirect, url_for, current_app
 from sqlalchemy.orm import sessionmaker
 from app.models import User, Data_Base, engine
 import hashlib
@@ -20,14 +19,27 @@ class Auth(object):
     """
     Class that handles the authentication variables with Firebase
     :firebase_auth gets the configuration dictionary that will be used for authenticating the user
+    :firebase_db_url contains the database url to Firebase
+    :firebase_conn connects to the database
     """
     @staticmethod
     def firebase_auth():
         return current_app.config.get('FIREBASE_CONFIG').auth()
 
+    @staticmethod
+    def firebase_db_url():
+        return current_app.config.get('FIREBASE_DB_CONN')
+
+    @staticmethod
+    def firebase_conn():
+        return firebase.FirebaseApplication(Auth.firebase_db_url(), None)
+
 
 def signup_handler(email, password, full_name):
     """
+    Handles user sign up. The Try...catch block creates a new user with email and password
+    Checks if the user already exists in the database and returns true if they do not.
+    The user is then created in the database and their credentials are passed to the database
     :param email: email the user enters in the form
     :param password: password entered by the user
     :param full_name: full name of the user
@@ -58,6 +70,13 @@ def signup_handler(email, password, full_name):
 
 
 def login_handler(login_email, password):
+    """
+    :param login_email: User login email
+    :param password: user login password
+    :return: Whether the user exists in the auth configurations or whether they are new users
+    :rtype Bool
+    """
+
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
     firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
 
@@ -85,14 +104,6 @@ def login_handler(login_email, password):
     return redirect(url_for(endpoint='dashboard.dashboard', username=email))
 
 
-def register_chama():
-    """
-    Method to manage subse
-    :return:
-    """
-    pass
-
-
 def check_user(user):
     """
     Helper function that validates a user on login
@@ -116,11 +127,7 @@ def database_directive(uid, username, full_name, email, password):
 
     first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
 
-    firebase_base_url = current_app.config.get('FIREBASE_DB_CONN'),
-    firebase_conn = firebase.FirebaseApplication(firebase_base_url, None),
-
-    # Database Directive
-    firebase_conn.post(url='/users', name=username, data={
+    Auth.firebase_conn().post(url='/users', name=username, data={
         'uid': uid,
         'firstName': first_name,
         'lastName': last_name,
