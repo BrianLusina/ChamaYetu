@@ -8,10 +8,13 @@ mod_home = Blueprint('home', __name__, url_prefix='/')
 
 @mod_home.route('/')
 @mod_home.route('index/')
+@mod_home.route('home')
 def index():
     """
     :return: Render template for home page
     """
+    if TemplateNotFound('404.html', message=None):
+        return render_template('404.html')
     return render_template("home_page/index.html")
 
 

@@ -5,6 +5,7 @@
       <ul class="right hide-on-med-and-down">
           <!--show login modal-->
         <li>
+            <!--{{url_for('dashboard.dashboard')}}-->
           <a class="waves-effect waves-light modal-trigger" href="#login-modal">Login</a>
         </li>
           <!--show sign up modal-->
@@ -29,11 +30,11 @@
       <br><br>
       <h1 class="header center orange-text">Chama Yetu</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A simple chama management tool.</h5>
+        <h5 class="header col s12 light">A modern responsive chama management tool.</h5>
       </div>
       <div class="row center">
             <!-- Modals for sign up and login -->
-          {% include 'home_page/modals.html' %}
+          {% include 'auth/modals.html' %}
       </div>
       <br><br>
 
