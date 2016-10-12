@@ -1,6 +1,4 @@
-# <<<<<<< HEAD
 import sqlalchemy
-# =======
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for, \
     current_app
 from sqlalchemy.orm import sessionmaker
@@ -10,18 +8,14 @@ from firebase import firebase
 import hashlib
 import uuid
 import re
-# >>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
 from flask import Blueprint, request, render_template, g, flash, session, redirect, url_for
 from  sqlalchemy.orm import sessionmaker
 # import password encryption helper tools
 from werkzeug.security import check_password_hash, generate_password_hash
-# <<<<<<< HEAD
 from app.mod_auth.forms import LoginForm, TreasurerForm, RegistrationForm
 from app.models import User, Data_Base, engine
 from app.mod_dashboard import controller
-# =======
 from app.mod_auth.forms import LoginForm
-# >>>>>>> 4f7d50700a62ff3b23bb68480d66863f85e5bc03
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
