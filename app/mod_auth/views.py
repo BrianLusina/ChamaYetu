@@ -34,6 +34,7 @@ def sign_in():
         else:
             # Display error
             flash("This email already exists")
+        return render_template('home/index.html')
 
     return render_template('home/index.html')
 
@@ -58,6 +59,7 @@ def login():
 
         if auth.login_handler(username=username):
             return redirect(url_for(endpoint='dashboard.dashboard', username=username))
+        else:
+            flash("Wrong Password or email")
 
-        # redirect to dashboard, pass the username to the dashboard
-        return redirect(url_for(endpoint='dashboard.dashboard', username=email))
+    return render_template('home/index.html')

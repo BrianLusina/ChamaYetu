@@ -47,6 +47,12 @@ class Auth(object):
     def firebase_database():
         return Auth.firebase_auth().database()
 
+    def firebase_nodes(self):
+        return {
+            "firebase_users_node": current_app.config.get('FIREBASE_USERS_NODE'),
+            "firebase_web_key": current_app.config.get("FIREBASE_WEB_KEY")
+        }
+
     def signup_handler(self, full_name, username):
         """
         Handles user sign up. The Try...catch block creates a new user with email and password
@@ -71,8 +77,9 @@ class Auth(object):
         # create a user with email and password, check if the user email already exists
         try:
             auth.create_user_with_email_and_password(self.email, password)
+            token = auth.create_custom_token(uid=uid)
             # send verification email
-            auth.send_email_verification()
+            auth.send_email_verification(token)
             self.database_directive(uid, username, full_name)
             return True
         except HTTPError:
@@ -91,11 +98,9 @@ class Auth(object):
         auth = Auth.firebase_auth()
         try:
             auth.sign_in_with_email_and_password(self.email, self.password)
+
             # get connection to user's node and query specific user
             user = Auth.firebase_conn().get(firebase_users_node, username)
-
-            if user:
-                return True
 
             # todo: assign the user an auth token and pass to a session
             authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=self.email)
