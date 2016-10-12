@@ -20,6 +20,7 @@ class Auth(object):
     firebase_auth gets the configuration dictionary that will be used for authenticating the user
     firebase_db_url contains the database url to Firebase
     firebase_conn connects to the database
+    firebase_database connects to the database url, enabling access to the database nodes
     """
 
     def __init__(self, email, password):
@@ -41,6 +42,10 @@ class Auth(object):
     @staticmethod
     def firebase_conn():
         return firebase.FirebaseApplication(Auth.firebase_db_url(), None)
+
+    @staticmethod
+    def firebase_database():
+        return Auth.firebase_auth().database()
 
     def signup_handler(self, full_name, username):
         """
@@ -66,6 +71,8 @@ class Auth(object):
         # create a user with email and password, check if the user email already exists
         try:
             auth.create_user_with_email_and_password(self.email, password)
+            # send verification email
+            auth.send_email_verification()
             self.database_directive(uid, username, full_name)
             return True
         except HTTPError:
@@ -81,18 +88,24 @@ class Auth(object):
         firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
         firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
-        # get connection to user's node and query specific user
-        user = Auth.firebase_conn().get(firebase_users_node, username)
+        auth = Auth.firebase_auth()
+        try:
+            auth.sign_in_with_email_and_password(self.email, self.password)
+            # get connection to user's node and query specific user
+            user = Auth.firebase_conn().get(firebase_users_node, username)
 
-        if user:
+            if user:
+                return True
+
+            # todo: assign the user an auth token and pass to a session
+            authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=self.email)
+            firebase.authentication = authentication
+            print(authentication.extra)
+            # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
+            user = authentication.get_user()
             return True
-
-        # todo: assign the user an auth token and pass to a session
-        authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=self.email)
-        firebase.authentication = authentication
-        print(authentication.extra)
-        # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
-        user = authentication.get_user()
+        except HTTPError:
+            return False
 
     def database_directive(self, uid, username, full_name):
         """
