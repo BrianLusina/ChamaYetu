@@ -1,5 +1,4 @@
-from flask import request, g, session, redirect, url_for, current_app
-from sqlalchemy.orm import sessionmaker
+from flask import request, g, session, current_app
 from app.models import User, Data_Base, engine
 import hashlib
 import uuid
@@ -67,76 +66,50 @@ class Auth(object):
         # create a user with email and password, check if the user email already exists
         try:
             auth.create_user_with_email_and_password(self.email, password)
-            database_directive(uid, username, full_name, self.email, password)
+            self.database_directive(uid, username, full_name)
             return True
         except HTTPError:
             # if the email already exists, return false to display an error in the view
             return False
 
+    def login_handler(self, username):
+        """
+        :return: Whether the user exists in the auth configurations or whether they are new users
+        :rtype Bool
+        """
 
-def login_handler(login_email, password):
-    """
-    :param login_email: User login email
-    :param password: user login password
-    :return: Whether the user exists in the auth configurations or whether they are new users
-    :rtype Bool
-    """
+        firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
+        firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
-    firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
-    firebase_conn = firebase.FirebaseApplication(firebase_base_url, None)
+        # get connection to user's node and query specific user
+        user = Auth.firebase_conn().get(firebase_users_node, username)
 
-    firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
-    firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
+        if user:
+            return True
 
-    # get the full name from the form and split to get the username
-    email = request.form['login_email']
-    password = request.form['login_password']
-    username = re.split('@', email)[0].lower()
+        # todo: assign the user an auth token and pass to a session
+        authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=self.email)
+        firebase.authentication = authentication
+        print(authentication.extra)
+        # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
+        user = authentication.get_user()
 
-    # get connection to user's node and query specific user
-    user = firebase_conn.get(firebase_users_node, username)
-    if check_user(user):
-        return redirect(url_for(endpoint='dashboard.dashboard', username=username))
+    def database_directive(self, uid, username, full_name):
+        """
+        Adds the user to the database with the following params
+        :param uid: the user id which is auto generated
+        :param username: the username generated from the user email
+        :param full_name: full name of the user
+        :return: no return type here
+        """
 
-    # todo: assign the user an auth token and pass to a session
-    authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=email)
-    firebase.authentication = authentication
-    print(authentication.extra)
-    # {'admin': False, 'debug': False, 'email': email, 'id': idx, 'provider': 'password'}
-    user = authentication.get_user()
+        first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
 
-    # redirect to dashboard, pass the username to the dashboard
-    return redirect(url_for(endpoint='dashboard.dashboard', username=email))
-
-
-def check_user(user):
-    """
-    Helper function that validates a user on login
-    :param user the user to validate
-    :return:
-    """
-    if user:
-        return True
-
-
-def database_directive(uid, username, full_name, email, password):
-    """
-    Adds the user to the database with the following params
-    :param uid: the user id which is auto generated
-    :param username: the username generated from the user email
-    :param full_name: full name of the user
-    :param email: email the user will authenticate with
-    :param password: password the user will use to sign up and login
-    :return: no return type here
-    """
-
-    first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
-
-    Auth.firebase_conn().put(url='/users', name=username,data={
-        'uid': uid,
-        'firstName': first_name,
-        'lastName': last_name,
-        'email': email,
-        'userName': username,
-        'userPassword': password
-    }, headers={'print': 'pretty'})
+        Auth.firebase_conn().put(url='/users', name=username, data={
+            'uid': uid,
+            'firstName': first_name,
+            'lastName': last_name,
+            'email': self.email,
+            'userName': username,
+            'userPassword': self.password
+        }, headers={'print': 'pretty'})

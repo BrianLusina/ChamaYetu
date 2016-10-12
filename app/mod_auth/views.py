@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, flash, redirect, url_for
-from .controllers import login_handler, Auth
+from .controllers import Auth
 import re
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
@@ -54,7 +54,9 @@ def login():
         password = request.form['login_password']
         username = re.split('@', email)[0]
 
-        if login_handler(login_email=email, password=password):
+        auth = Auth(email=email, password=password)
+
+        if auth.login_handler(username=username):
             return redirect(url_for(endpoint='dashboard.dashboard', username=username))
 
         # redirect to dashboard, pass the username to the dashboard
