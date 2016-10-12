@@ -34,7 +34,7 @@ def sign_in():
         else:
             # Display error
             flash("This email already exists")
-        return render_template('home/index.html')
+            return render_template('home/index.html')
 
     return render_template('home/index.html')
 
