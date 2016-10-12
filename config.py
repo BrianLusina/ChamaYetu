@@ -25,7 +25,8 @@ config = {
     "authDomain": "chamayetu-ddca4.firebaseapp.com",
     "databaseURL": FIREBASE_DB_CONN,
     "storageBucket": "chamayetu-ddca4.appspot.com",
-    "messagingSenderId": "128820725100"
+    "messagingSenderId": "128820725100",
+    "serviceAccountEmail": "chamayetu@chamayetu-ddca4.iam.gserviceaccount.com"
 }
 
 FIREBASE_CONFIG = pyrebase.initialize_app(config)

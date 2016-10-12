@@ -76,12 +76,12 @@ class Auth(object):
 
         # create a user with email and password, check if the user email already exists
         try:
-            user = auth.create_user_with_email_and_password(self.email, password)
-            token = auth.create_custom_token("your_custom_id")
+            auth.create_user_with_email_and_password(self.email, password)
+            token = auth.create_custom_token(uid=uid)
 
-            custom_token = auth.sign_in_with_custom_token(token)
-            auth.send_email_verification(custom_token['idToken'])
-            
+            user = auth.sign_in_with_custom_token(token)
+            auth.send_email_verification(user['idToken'])
+
             self.database_directive(uid, username, full_name)
             if user:
                 return True
