@@ -12,6 +12,12 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 DATABASE_CONNECT_OPTIONS = {}
 
+
+class Service:
+    _private_key_pkcs8_pem = "2e9358aeaced4f680a2a14ea0a7435d90e332d8a"
+    service_account_email = "chamayetu@chamayetu-ddca4.iam.gserviceaccount.com"
+
+
 FIREBASE_DB_CONN = "https://chamayetu-ddca4.firebaseio.com/"
 FIREBASE_USERS_NODE = '/users'
 FIREBASE_CHAMA_NODE = '/chamas'
@@ -26,8 +32,9 @@ config = {
     "databaseURL": FIREBASE_DB_CONN,
     "storageBucket": "chamayetu-ddca4.appspot.com",
     "messagingSenderId": "128820725100",
-    "serviceAccountEmail": "chamayetu@chamayetu-ddca4.iam.gserviceaccount.com"
+    "serviceAccountEmail": Service
 }
+
 
 FIREBASE_CONFIG = pyrebase.initialize_app(config)
 
