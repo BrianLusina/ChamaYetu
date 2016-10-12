@@ -22,6 +22,15 @@ class Auth(object):
     firebase_db_url contains the database url to Firebase
     firebase_conn connects to the database
     """
+
+    def __init__(self, email, password):
+        """
+        :param email: email the user enters in the form
+        :param password: password entered by the user
+        """
+        self.email = email
+        self.password = password
+
     @staticmethod
     def firebase_auth():
         return current_app.config.get('FIREBASE_CONFIG').auth()
@@ -34,38 +43,35 @@ class Auth(object):
     def firebase_conn():
         return firebase.FirebaseApplication(Auth.firebase_db_url(), None)
 
+    def signup_handler(self, full_name, username):
+        """
+        Handles user sign up. The Try...catch block creates a new user with email and password
+        Checks if the user already exists in the database and returns true if they do not.
+        The user is then created in the database and their credentials are passed to the database
+        :param username: auto-generated username
+        :param full_name: full name of the user
+        :return: :rtype boolean depending on success of the user signing up
+        """
 
-def signup_handler(email, password, full_name, username):
-    """
-    Handles user sign up. The Try...catch block creates a new user with email and password
-    Checks if the user already exists in the database and returns true if they do not.
-    The user is then created in the database and their credentials are passed to the database
-    :param username: auto-generated username
-    :param email: email the user enters in the form
-    :param password: password entered by the user
-    :param full_name: full name of the user
-    :return: :rtype boolean depending on success of the user signing up
-    """
+        auth = Auth.firebase_auth()
 
-    auth = Auth.firebase_auth()
+        # Generates Random UID for Database
+        idx = uuid.uuid4()
+        uid = str(idx)
 
-    # Generates Random UID for Database
-    idx = uuid.uuid4()
-    uid = str(idx)
+        # Hash that Password
+        sha1 = hashlib.sha1()
+        sha1.update(self.password)
+        password = sha1.hexdigest()
 
-    # Hash that Password
-    sha1 = hashlib.sha1()
-    sha1.update(password)
-    password = sha1.hexdigest()
-
-    # create a user with email and password, check if the user email already exists
-    try:
-        auth.create_user_with_email_and_password(email, password)
-        database_directive(uid, username, full_name, email, password)
-        return True
-    except HTTPError:
-        # if the email already exists, return false to display an error in the view
-        return False
+        # create a user with email and password, check if the user email already exists
+        try:
+            auth.create_user_with_email_and_password(self.email, password)
+            database_directive(uid, username, full_name, self.email, password)
+            return True
+        except HTTPError:
+            # if the email already exists, return false to display an error in the view
+            return False
 
 
 def login_handler(login_email, password):

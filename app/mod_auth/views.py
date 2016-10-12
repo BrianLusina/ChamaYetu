@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, flash, redirect, url_for
-from .controllers import login_handler, signup_handler
+from .controllers import login_handler, Auth
 import re
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
@@ -17,6 +17,7 @@ def sign_in():
     check if the username/email already exists, if so, alert the user
     :return: redirect to dashboard
     """
+
     if request.method == 'POST':
         # get the full name from the form and split to get the username
         full_name = request.form['signup_full_name']
@@ -24,7 +25,10 @@ def sign_in():
         password = request.form['signup_password']
         username = re.split('@', email)[0]
 
-        if signup_handler(email=email, password=password, full_name=full_name, username=username):
+        # initialize the Auth class with the email and password
+        auth = Auth(email=email, password=password)
+
+        if auth.signup_handler(full_name=full_name, username=username):
             # redirect to dashboard, pass the username to the dashboard
             return redirect(url_for(endpoint='dashboard.dashboard', username=username, scheme='https'))
         else:
