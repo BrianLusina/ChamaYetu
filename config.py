@@ -1,11 +1,13 @@
 # Define the application directory
 import os
 import pyrebase
+import json
 
 # Statement for enabling the development environment
 DEBUG = True
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
 
 # Define the database - we are working with
 # SQLite for this example
@@ -14,8 +16,17 @@ DATABASE_CONNECT_OPTIONS = {}
 
 
 class Service:
-    _private_key_pkcs8_pem = "2e9358aeaced4f680a2a14ea0a7435d90e332d8a"
-    service_account_email = "chamayetu@chamayetu-ddca4.iam.gserviceaccount.com"
+    # store the json file in a variable
+    __json_service = open("ChamaYetu-service.json", "r")
+    # enter the file, load it into a variable and close the file
+    with __json_service as data_file:
+        chamayetu_service = json.load(data_file)
+
+    def __init__(self):
+        pass
+
+    _private_key_pkcs8_pem = chamayetu_service["private_key"]
+    service_account_email = chamayetu_service["client_email"]
 
 
 FIREBASE_DB_CONN = "https://chamayetu-ddca4.firebaseio.com/"
@@ -34,7 +45,6 @@ config = {
     "messagingSenderId": "128820725100",
     "serviceAccountEmail": Service
 }
-
 
 FIREBASE_CONFIG = pyrebase.initialize_app(config)
 
