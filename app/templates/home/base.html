@@ -1,0 +1,19 @@
+{% include 'home/head.html' %}
+
+{% block content %}
+
+{% endblock %}
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{{ url_for('static', filename='js/vendor/materialize.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/init.js') }}"></script>
+ <script type="text/javascript">
+           {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                           Materialize.toast('{{ message }}', 4000) // 4000 is the duration of the toast
+                    {% endfor %}
+                {% endif %}
+          {% endwith %}
+    </script>
+</body>
+</html>
