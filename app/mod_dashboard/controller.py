@@ -4,10 +4,11 @@ from sqlalchemy.orm import sessionmaker
 from wtforms import validators
 from app.models import User, Data_Base, engine
 from firebase import firebase
-from pprint import pprint
 from .form import SuggProject
 import datetime
 from pprint import pprint
+
+
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -46,26 +47,10 @@ def dashboard(username):
     return render_template('user_dashboard/dashboard.html', username=username,
                            chama_details=chama_details, chama_statement=chama_statement)
 
-    # welcome our amazing user
-    flash("Welcome back " + username)
-
-    # query the user's chama (boda in this case)
-    user_chamas = firebase_conn.get(firebase_users_node+"/"+username+"/chamaGroups/boda", None)
-
-    # connect to that chama to get specific details
-    chama_details = firebase_conn.get(firebase_chama_node+"/boda", None)
-    chama_statement = firebase_conn.get(firebase_statements_node+"/boda", None)
-    pprint(chama_details)
-
-    return render_template('user_dashboard/dashboard.html', username=username,
-                           chama_details=chama_details, chama_statement=chama_statement)
-
 # global var
 count = 0
-
-
 # add milestone
-@mod_dashboard.route('/milestones', methods=['GET','POST'])
+@mod_dashboard.route('/milestones',methods=['GET','POST'])
 def add_milestone():
 
     # form = AddMile()
@@ -85,7 +70,7 @@ def add_milestone():
 @mod_dashboard.route('/project',methods=['GET','POST'])
 def sugg_project():
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
-    firebase_suggestedproj = current_app.config.get('FIREBASE_SUGGESTEDPROJ_NODE')
+    firebase_suggestedproj = current_app.config.get('FIREBASE_PROJ_NODE')
     firebase_con = firebase.FirebaseApplication(firebase_base_url ,None)
 
     form = SuggProject()
@@ -98,9 +83,9 @@ def sugg_project():
         count +=1
 
         # data to be added to firebase
-        dateData = {'date': form.date.data ,}
-        projData = {'projectname':form.title.data}
-        firebase_con.put('/chamas/boda', name='projects',data={'Date':dateData,'project':projData} )
+        Data = {'projDate': form.date.data ,'projName':form.title.data}
+        # projData = {'projectname':form.title.data}
+        firebase_con.put('/projects/boda', name='proj'+ str(count),data=Data )
 
         return render_template('user_dashboard/dashboard.html',form=form)
 
