@@ -70,7 +70,7 @@ def add_milestone():
 @mod_dashboard.route('/project',methods=['GET','POST'])
 def sugg_project():
     firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
-    firebase_suggestedproj = current_app.config.get('FIREBASE_SUGGESTEDPROJ_NODE')
+    firebase_suggestedproj = current_app.config.get('FIREBASE_PROJ_NODE')
     firebase_con = firebase.FirebaseApplication(firebase_base_url ,None)
 
     form = SuggProject()
@@ -83,9 +83,9 @@ def sugg_project():
         count +=1
 
         # data to be added to firebase
-        dateData = {'date': form.date.data ,}
-        projData = {'projectname':form.title.data}
-        firebase_con.put('/chamas/boda', name='projects',data={'Date':dateData,'project':projData} )
+        Data = {'projDate': form.date.data ,'projName':form.title.data}
+        # projData = {'projectname':form.title.data}
+        firebase_con.put('/projects/boda', name='proj'+ str(count),data=Data )
 
         return render_template('user_dashboard/dashboard.html',form=form)
 

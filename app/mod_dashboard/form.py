@@ -10,5 +10,5 @@ class AddMile(Form):
 class SuggProject(Form):
 
     date = StringField('date', default=datetime.now())
-    title = StringField('title', validators=[DataRequired()])
+    title = StringField('proj', validators=[DataRequired()])
 
