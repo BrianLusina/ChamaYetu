@@ -29,13 +29,26 @@ def register_user():
         # initialize the Auth class with the email and password
         auth = Auth(email=email, phone_no=phone_no, password=password)
 
-        if auth.register_user_handler(full_name=full_name, username=username, phone_no=phone_no):
+        if auth.register_user_handler(full_name=full_name, username=username):
+
             # redirect to dashboard, pass the username to the dashboard
             return redirect(url_for(endpoint='dashboard.dashboard', username=username, scheme='https'))
         else:
             # Display error
             flash("This email already exists")
             return render_template('home/index.html')
+
+    return render_template('home/index.html')
+
+
+@mod_auth.route('/register-chama', methods=['POST', "GET"])
+def register_chama():
+    if request.method == "POST":
+        chama_name = request.form['chama_name']
+        chama_members = request.form['chama-members']
+        chama_bank = request.form['bank-name']
+        chama_bank_ac = request.form['bank-account-no']
+
 
     return render_template('home/index.html')
 
