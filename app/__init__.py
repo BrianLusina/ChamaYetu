@@ -17,22 +17,22 @@ app.config.from_object('config')
 # Error handler for page not found
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html'), 404
+    return render_template('404.html')
 
 
 @app.errorhandler(403)
 def error_403(error):
-    return render_template("403.html"), 403
+    return render_template("403.html")
 
 
 @app.errorhandler(403)
 def error_500(error):
-    return render_template("500.html"), 500
+    return render_template("500.html")
 
 
 @app.errorhandler(400)
 def not_found(error):
-    return render_template('400.html'), 404
+    return render_template('400.html')
 
 # Register blueprint(s) ALL blueprints will be registered here
 app.register_blueprint(home_module)

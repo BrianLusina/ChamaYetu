@@ -1,9 +1,9 @@
 {% extends "home/base.html" %}
 
 {% block container %}
-    <div class="jumbotron">
+    <div>
         <h1>400 Bad Request</h1>
-        <p class="lead">Page found but the POST/GET data sent was invalid.</p>
+        <p>Page found but the POST/GET data sent was invalid.</p>
         <p>URL: {{ request.url }}</p>
     </div>
 {% endblock %}
