@@ -87,7 +87,7 @@ class Auth(object):
             return False
 
     @staticmethod
-    def register_chama_handler(chama_name,chama_members,bank_name,bank_account):
+    def register_chama_handler(chama_name, chama_members, bank_name, bank_account):
         """
         :param chama_name: name of the chama to be registered
         :param chama_members: number of members to be registered with the chama

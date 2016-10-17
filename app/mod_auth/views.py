@@ -31,7 +31,7 @@ def register_user():
 
         if auth.register_user_handler(full_name=full_name, username=username):
             # proceed to register chama, pass the user name for the user dashboard
-            register_chama(username)
+            return register_chama(username)
         else:
             # Display error
             flash("This email already exists")
