@@ -1,12 +1,9 @@
 from flask import Blueprint, request, render_template, \
     g, flash, session, redirect, url_for, current_app
 from sqlalchemy.orm import sessionmaker
-from wtforms import validators
 from app.models import User, Data_Base, engine
 from firebase import firebase
-from pprint import pprint
 from .form import SuggProject
-import datetime
 from pprint import pprint
 
 # Create session and connect to DB

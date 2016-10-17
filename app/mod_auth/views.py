@@ -7,8 +7,8 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 # set the routes and accepted methods
-@mod_auth.route('/signin/', methods=["POST", "GET"])
-def sign_in():
+@mod_auth.route('/register/', methods=["POST", "GET"])
+def register_user():
     """
     Creates a connection to the firebase database to add a user
     get password and username from the sign up form
@@ -23,12 +23,13 @@ def sign_in():
         full_name = request.form['signup_full_name']
         email = request.form['signup-email']
         password = request.form['signup_password']
+        phone_no = request.form['signup-phone']
         username = re.split('@', email)[0]
 
         # initialize the Auth class with the email and password
-        auth = Auth(email=email, password=password)
+        auth = Auth(email=email, phone_no=phone_no, password=password)
 
-        if auth.signup_handler(full_name=full_name, username=username):
+        if auth.register_user_handler(full_name=full_name, username=username, phone_no=phone_no):
             # redirect to dashboard, pass the username to the dashboard
             return redirect(url_for(endpoint='dashboard.dashboard', username=username, scheme='https'))
         else:

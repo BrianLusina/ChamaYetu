@@ -23,13 +23,14 @@ class Auth(object):
     firebase_database connects to the database url, enabling access to the database nodes
     """
 
-    def __init__(self, email, password):
+    def __init__(self, email, phone_no ,password):
         """
         :param email: email the user enters in the form
         :param password: password entered by the user
         """
         self.email = email
         self.password = password
+        self.phone_no = phone_no
 
     @staticmethod
     def firebase_auth():
@@ -53,7 +54,7 @@ class Auth(object):
             "firebase_web_key": current_app.config.get("FIREBASE_WEB_KEY")
         }
 
-    def signup_handler(self, full_name, username):
+    def register_user_handler(self, full_name, username):
         """
         Handles user sign up. The Try...catch block creates a new user with email and password
         Checks if the user already exists in the database and returns true if they do not.
@@ -128,5 +129,6 @@ class Auth(object):
             'lastName': last_name,
             'email': self.email,
             'userName': username,
+            'phoneNumber': self.phone_no,
             'userPassword': self.password
         }, headers={'print': 'pretty'})
