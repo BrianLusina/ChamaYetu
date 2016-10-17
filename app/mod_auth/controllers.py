@@ -86,6 +86,18 @@ class Auth(object):
             # if the email already exists, return false to display an error in the view
             return False
 
+    @staticmethod
+    def register_chama_handler(chama_name,chama_members,bank_name,bank_account):
+        """
+        :param chama_name: name of the chama to be registered
+        :param chama_members: number of members to be registered with the chama
+        :param bank_name: the bank name of the registering chama
+        :param bank_account: the bank account of the chama
+        :return: :rtype bool, whether the write operation is completed
+        """
+
+        pass
+
     def login_handler(self, username):
         """
         :return: Whether the user exists in the auth configurations or whether they are new users
