@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from wtforms import validators
 from app.models import User, Data_Base, engine
 from firebase import firebase
-from .form import SuggProject
+from .form import SuggProject , AddMile
 import datetime
 from pprint import pprint
 
@@ -52,16 +52,20 @@ count = 0
 # add milestone
 @mod_dashboard.route('/milestones',methods=['GET','POST'])
 def add_milestone():
+    firebase_base_url = current_app.config.get('FIREBASE_DB_CONN')
+    firebase_suggestedproj = current_app.config.get('FIREBASE_MILESTONE_NODE')
+    firebase_con = firebase.FirebaseApplication(firebase_base_url, None)
 
-    # form = AddMile()
-    #
-    # if form.validate_on_submit():
-    #     global count
-    #     count +=1
-    #
-    #     putData={'date':form.date.data,'projectname:form.title.data'}
-    #     firebase.put('/suggestProject' ,'project' +str(count),putData )
-    #     return render_template('user_dashboard/dashboard.html')
+    form = AddMile()
+
+    if request.method == 'POST':
+        global count
+        count +=1
+
+        putData={'mileDate':form.date.data,'mileName':form.title.data}
+        firebase_con.put('/milestones/boda', name='mile'+ str(count),data=putData )
+
+        return render_template('user_dashboard/dashboard.html')
 
     return render_template('user_dashboard/milestone.html')
 
@@ -75,7 +79,7 @@ def sugg_project():
 
     form = SuggProject()
 
-    if request.method == 'POST' and form.validate:
+    if request.method == 'POST':
         # create access to count var
         global count
 
@@ -83,6 +87,7 @@ def sugg_project():
         count +=1
 
         # data to be added to firebase
+
         Data = {'projDate': form.date.data ,'projName':form.title.data}
         # projData = {'projectname':form.title.data}
         firebase_con.put('/projects/boda', name='proj'+ str(count),data=Data )

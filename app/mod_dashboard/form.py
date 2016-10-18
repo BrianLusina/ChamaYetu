@@ -4,11 +4,12 @@ from wtforms import StringField, BooleanField
 from wtforms.validators import DataRequired
 
 class AddMile(Form):
+    date = StringField('date', default=datetime.now())
+    title = StringField('mile')
 
 
     pass
 class SuggProject(Form):
 
     date = StringField('date', default=datetime.now())
-    title = StringField('proj', validators=[DataRequired()])
-
+    title = StringField('proj')
