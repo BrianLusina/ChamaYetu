@@ -23,14 +23,13 @@ class Auth(object):
     firebase_database connects to the database url, enabling access to the database nodes
     """
 
-    def __init__(self, email, phone_no ,password):
+    def __init__(self, email,password):
         """
         :param email: email the user enters in the form
         :param password: password entered by the user
         """
         self.email = email
         self.password = password
-        self.phone_no = phone_no
 
     @staticmethod
     def firebase_auth():

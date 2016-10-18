@@ -27,20 +27,24 @@ def register_user():
         username = re.split('@', email)[0]
 
         # initialize the Auth class with the email and password
-        auth = Auth(email=email, phone_no=phone_no, password=password)
-
-        if auth.register_user_handler(full_name=full_name, username=username):
+        auth = Auth(email=email, password=password)
+        try:
+            if auth.register_user_handler(full_name=full_name, username=username):
             # proceed to register chama, pass the user name for the user dashboard
-            return redirect(url_for(endpoint='auth.register_chama', username=username, scheme='https'))
-        else:
-            # Display error
-            flash("This email already exists")
-            return render_template('home/index.html')
+                return redirect(url_for(endpoint='auth.register_chama', scheme='https'))
+            else:
+                # Display error
+                flash("This email already exists")
+                return render_template('home/index.html')
+        except IndexError:
+                flash("two names required!")
 
-    return render_template('home/index.html')
 
 
-@mod_auth.route('/register-chama/<username>', methods=['POST', "GET"])
+        return render_template('home/index.html')
+
+
+@mod_auth.route('/register-chama', methods=['POST', "GET"])
 def register_chama():
     if request.method == "POST":
         chama_name = request.form['chama_name']
@@ -74,7 +78,7 @@ def login():
         password = request.form['login_password']
         username = re.split('@', email)[0]
 
-        auth = Auth(email=email, password=password)
+        auth = Auth(email=email,  password=password)
 
         if auth.login_handler(username=username):
             return redirect(url_for(endpoint='dashboard.dashboard', username=username))
