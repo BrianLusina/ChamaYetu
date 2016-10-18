@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard/style.css')}}">
+	
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard/app.css')}}">
+	
+	<script src="{{ url_for('static', filename='js/vendor/modernizr.js')}}"></script>
+	<title>ChamaYetu</title>
+</head>
+<body>
+
+<div class="project">
+        <h3>PROJECT IDEA</h3>
+        <form action="{{ url_for('dashboard.sugg_project') }}"  method ='POST'>
+            <textarea name="proj">
+				{{ form }}
+
+            </textarea>
+			
+            <button type="submit" value='add'>Suggest project</button>
+        </form>
+
+
+		</div>
+
+<div>
+
+</div>
+
+</body>
+</html>
