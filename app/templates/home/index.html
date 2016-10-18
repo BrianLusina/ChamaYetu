@@ -1,4 +1,4 @@
-{% extends 'home_page/base.html' %}
+{% extends 'home/base.html' %}
 {% block content %}
   <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">ChamaYetu</a>
@@ -29,11 +29,14 @@
       <br><br>
       <h1 class="header center orange-text">Chama Yetu</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A simple chama management tool.</h5>
+        <h5 class="header col s12 light">A modern responsive chama management tool.</h5>
       </div>
       <div class="row center">
-            <!-- Modals for sign up and login -->
-          {% include 'home_page/modals.html' %}
+          <!-- Modals for sign up and login -->
+          {% include 'auth/modals.html' %}
+
+        <!--register chama modal that will be revealed only when the user finished their registration-->
+          {% include 'auth/register-chama-modal.html' %}
       </div>
       <br><br>
 

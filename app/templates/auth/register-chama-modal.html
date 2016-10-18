@@ -1,0 +1,49 @@
+<div id="register-chama-modal" class="modal">
+  <div class="modal-content">
+      <div class="row">
+          <!--Sign Up form-->
+          <div id="register-chama-form" class="col s12">
+              <div class="row">
+                  <form class="col s12" enctype="multipart/form-data" action="{{url_for('auth.register_chama')}}" method="post">
+                   <!--chama name-->
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <i class="material-icons prefix">account_circle</i>
+                           <input name="chama_name" id="chama_name" type="text" class="validate" required>
+                           <label class="modal-labels" for="chama_name">Chama Name</label>
+                       </div>
+                   </div>
+
+                   <!--number of members-->
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <i class="material-icons prefix">group_work</i>
+                           <input name="chama-members" id="chama-members" type="number" class="validate" required>
+                           <label class="modal-labels" for="chama-members" data-error="Please enter a number">Number of members</label>
+                       </div>
+                   </div>
+
+                  <!--bank account-->
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <i class="material-icons prefix">account_balance</i>
+                           <input name="bank-name" id="bank-name" type="text" class="validate" required>
+                           <label class="modal-labels" for="bank-name" data-error="Please enter your bank name">Bank</label>
+                       </div>
+                   </div>
+
+                   <!--account number-->
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <i class="material-icons prefix">account_balance</i>
+                           <input name="bank-account-no" id="bank-account-no" type="text" class="validate" required>
+                           <label class="modal-labels" for="bank-account-no">Account Number</label>
+                       </div>
+                   </div>
+                  <input id="register-user-btn" type="submit" class="btn btn-primary" value="Register">
+               </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

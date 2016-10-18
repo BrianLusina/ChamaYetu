@@ -1,11 +1,9 @@
 from flask import Blueprint, request, render_template, \
     g, flash, session, redirect, url_for, current_app
 from sqlalchemy.orm import sessionmaker
-from wtforms import validators
 from app.models import User, Data_Base, engine
 from firebase import firebase
 from .form import SuggProject
-import datetime
 from pprint import pprint
 
 
@@ -33,6 +31,9 @@ def dashboard(username):
     firebase_members_node = current_app.config.get('FIREBASE_MEMBERS_NODE')
     firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
 
+
+
+
     # welcome our amazing user
     flash("Welcome back " + username)
 
@@ -45,7 +46,8 @@ def dashboard(username):
     pprint(chama_details)
 
     return render_template('user_dashboard/dashboard.html', username=username,
-                           chama_details=chama_details, chama_statement=chama_statement)
+                           chama_details=chama_details, chama_statement=chama_statement, scheme='https')
+
 
 # global var
 count = 0
