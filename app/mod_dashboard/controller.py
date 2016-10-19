@@ -97,3 +97,7 @@ def sugg_project():
     else:
 
         return render_template('user_dashboard/project.html')
+
+@mod_dashboard.route('/calendar')
+def calendar():
+    return render_template("user_dashboard/calendar.html")
