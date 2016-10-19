@@ -98,6 +98,7 @@
         {% include 'user_dashboard/project_modal.html' %}
 
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" >home</i>Dashboard</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" >inbox</i>Inbox</a>
           <a href="milestone-statement-modal" class="modal-trigger mdl-navigation__link"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Add Milestone</a>
@@ -105,6 +106,8 @@
           <a href="project-modal" class="modal-trigger mdl-navigation__link">
               <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Suggest Project</a>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" >flag</i>Updates</a>
+          <a href="{{url_for('dashboard.calendar')}}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>Calender</a>
+
           <div class="mdl-layout-spacer"></div>
           <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" >help_outline</i><span>Help</span></a>
         </nav>
