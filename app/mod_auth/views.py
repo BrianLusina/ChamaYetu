@@ -59,7 +59,7 @@ def register_chama():
         # redirect to dashboard, pass the username to the dashboard
         return redirect(url_for(endpoint='dashboard.dashboard', username="username", scheme='https'))
 
-    return render_template('home/index.html')
+    return render_template('auth/register-chama-modal.html')
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])
