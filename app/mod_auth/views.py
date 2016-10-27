@@ -35,9 +35,9 @@ def register_user():
         else:
             # Display error
             flash("This email already exists")
-            return render_template('home/index.html')
+            return render_template('auth/login.html')
 
-    return render_template('home/index.html')
+    return render_template('auth/login.html')
 
 
 @mod_auth.route('/register-chama/<username>', methods=['POST', "GET"])
@@ -81,4 +81,4 @@ def login():
         else:
             flash("Wrong Password or email")
 
-    return render_template('home/index.html')
+    return render_template('auth/login.html')
