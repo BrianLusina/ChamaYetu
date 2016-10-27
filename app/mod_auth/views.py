@@ -82,3 +82,22 @@ def login():
             flash("Wrong Password or email")
 
     return render_template('auth/login.html')
+
+
+@mod_auth.route('/reset_password', methods=["POST", "GET"])
+def reset_password():
+    """
+    Creates a connection to the firebase auth
+    Checks if the user's email address is ther and sends a password reset email
+    :return: redirect to login page
+    """
+    if request.method == 'POST':
+        # get the reset email
+        email = request.form['reset_email']
+
+        if Auth.reset_password(email=email):
+            return redirect(url_for(endpoint='auth.login'))
+        else:
+            flash("Email does not exist")
+
+    return render_template('auth/forgot.html')

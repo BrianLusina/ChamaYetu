@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from firebase_token_generator import create_token
 from firebase import firebase
 from requests import HTTPError
+from app.mod_auth import FirebaseAuth
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -23,7 +24,7 @@ class Auth(object):
     firebase_database connects to the database url, enabling access to the database nodes
     """
 
-    def __init__(self, email, phone_no ,password):
+    def __init__(self, email, password, phone_no=None):
         """
         :param email: email the user enters in the form
         :param password: password entered by the user
@@ -31,28 +32,8 @@ class Auth(object):
         self.email = email
         self.password = password
         self.phone_no = phone_no
-
-    @staticmethod
-    def firebase_auth():
-        return current_app.config.get('FIREBASE_CONFIG').auth()
-
-    @staticmethod
-    def firebase_db_url():
-        return current_app.config.get('FIREBASE_DB_CONN')
-
-    @staticmethod
-    def firebase_conn():
-        return firebase.FirebaseApplication(Auth.firebase_db_url(), None)
-
-    @staticmethod
-    def firebase_database():
-        return Auth.firebase_auth().database()
-
-    def firebase_nodes(self):
-        return {
-            "firebase_users_node": current_app.config.get('FIREBASE_USERS_NODE'),
-            "firebase_web_key": current_app.config.get("FIREBASE_WEB_KEY")
-        }
+        self.auth = FirebaseAuth.fire_auth()
+        self.conn = FirebaseAuth.fire_conn()
 
     def register_user_handler(self, full_name, username):
         """
@@ -63,8 +44,6 @@ class Auth(object):
         :param full_name: full name of the user
         :return: :rtype boolean depending on success of the user signing up
         """
-
-        auth = Auth.firebase_auth()
 
         # Generates Random UID for Database
         idx = uuid.uuid4()
@@ -77,8 +56,8 @@ class Auth(object):
 
         # create a user with email and password, check if the user email already exists
         try:
-            user = auth.create_user_with_email_and_password(self.email, password)
-            auth.send_email_verification(user['idToken'])
+            user = self.auth.create_user_with_email_and_password(self.email, password)
+            self.auth.send_email_verification(user['idToken'])
 
             self.database_directive(uid, username, full_name)
             return True
@@ -107,12 +86,11 @@ class Auth(object):
         firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
         firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
-        auth = Auth.firebase_auth()
         try:
-            auth.sign_in_with_email_and_password(self.email, self.password)
+            self.auth.sign_in_with_email_and_password(self.email, self.password)
 
             # get connection to user's node and query specific user
-            user = Auth.firebase_conn().get(firebase_users_node, username)
+            user = self.conn.get(firebase_users_node, username)
 
             # todo: assign the user an auth token and pass to a session
             authentication = firebase.FirebaseAuthentication(secret=firebase_secret, email=self.email)
@@ -123,6 +101,17 @@ class Auth(object):
             return True
         except HTTPError:
             return False
+
+    @staticmethod
+    def reset_password(email):
+        """
+        Reset user password on request
+        :param email: User email to reset password
+        :return:
+        """
+        # send password reset email
+        FirebaseAuth.fire_auth().send_password_reset_email(email=email)
+        pass
 
     def database_directive(self, uid, username, full_name):
         """
@@ -135,7 +124,7 @@ class Auth(object):
 
         first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
 
-        Auth.firebase_conn().put(url='/users', name=username, data={
+        self.conn.put(url='/users', name=username, data={
             'uid': uid,
             'firstName': first_name,
             'lastName': last_name,
