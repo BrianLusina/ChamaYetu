@@ -75,7 +75,6 @@ class Auth(object):
         """
         try:
             self.auth.sign_in_with_email_and_password(self.email, self.password)
-
             return True
         except HTTPError:
             return False

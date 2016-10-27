@@ -45,8 +45,8 @@ def register_chama():
     if request.method == "POST":
         chama_name = request.form['chama_name']
         chama_members = request.form['chama-members']
-        chama_bank = request.form['bank-name']
-        chama_bank_ac = request.form['bank-account-no']
+        chama_bank = request.form['chama_bank']
+        chama_bank_ac = request.form['chama_bank_ac']
 
         # pass the form data to the register chama handler in controller
         Auth.register_chama_handler(chama_name=chama_name, chama_members=chama_members, bank_name=chama_bank,
