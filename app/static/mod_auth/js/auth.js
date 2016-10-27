@@ -1,7 +1,7 @@
 $('.toggle').on('click', function() {
-  $('.container').stop().addClass('active');
+  $('.auth_container').stop().addClass('active');
 });
 
 $('.close').on('click', function() {
-  $('.container').stop().removeClass('active');
+  $('.auth_container').stop().removeClass('active');
 });

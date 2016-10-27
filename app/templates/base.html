@@ -1,4 +1,28 @@
 {% include 'head.html' %}
+<nav class="blue-grey darken-4" role="navigation">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo">ChamaYetu</a>
+        <ul class="right hide-on-med-and-down">
+            <li>
+                <a class="waves-effect waves-light modal-trigger" href="/auth/login">Login</a>
+            </li>
+            <li>
+                <a class="waves-effect waves-light modal-trigger" href="/auth/register">Sign Up</a>
+            </li>
+        </ul>
+
+        <!--view on mobile device-->
+        <ul id="nav-mobile" class="side-nav">
+            <li>
+                <a class="waves-effect waves-light modal-trigger" href="/auth/login">Login</a>
+            </li>
+            <li>
+                <a class="waves-effect waves-light modal-trigger" href="/auth/registe">Sign Up</a>
+            </li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
 
 {% block content %}
 
