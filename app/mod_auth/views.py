@@ -95,9 +95,9 @@ def reset_password():
         # get the reset email
         email = request.form['reset_email']
 
-        if Auth.reset_password(email=email):
-            return redirect(url_for(endpoint='auth.login'))
-        else:
-            flash("Email does not exist")
+        # send password reset, notify user
+        Auth.reset_password(email=email)
+        flash("Password reset sent, please check your email")
+        return redirect(url_for(endpoint='auth.login'))
 
     return render_template('auth/forgot.html')
