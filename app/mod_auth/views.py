@@ -76,7 +76,7 @@ def login():
 
         auth = Auth(email=email, password=password)
 
-        if auth.login_handler(username=username):
+        if auth.login_handler():
             return redirect(url_for(endpoint='dashboard.dashboard', username=username))
         else:
             flash("Wrong Password or email")

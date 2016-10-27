@@ -27,7 +27,7 @@ class Auth(object):
         self.email = email
         self.password = password
         self.phone_no = phone_no
-        self.auth = FirebaseAuth.fire_nodes()["fire_auth"]
+        self.auth = FirebaseAuth.fire_credentials()["fire_auth"]
         self.conn = FirebaseAuth.fire_conn()
 
     def register_user_handler(self, full_name, username):
@@ -75,6 +75,7 @@ class Auth(object):
         """
         try:
             self.auth.sign_in_with_email_and_password(self.email, self.password)
+
             return True
         except HTTPError:
             return False
@@ -87,7 +88,7 @@ class Auth(object):
         :return:
         """
         # send password reset email
-        FirebaseAuth.fire_nodes()["fire_auth"].send_password_reset_email(email=email)
+        FirebaseAuth.fire_credentials()["fire_auth"].send_password_reset_email(email=email)
         pass
 
     def database_directive(self, username, full_name):

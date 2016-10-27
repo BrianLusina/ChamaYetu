@@ -12,14 +12,14 @@ class FirebaseAuth(object):
 
     @staticmethod
     def fire_conn():
-        return firebase.FirebaseApplication(FirebaseAuth.fire_nodes()["fire_db_url"], None)
+        return firebase.FirebaseApplication(FirebaseAuth.fire_credentials()["fire_db_url"], None)
 
     @staticmethod
     def fire_database():
-        return FirebaseAuth.fire_nodes()["fire_auth()"].database()
+        return FirebaseAuth.fire_credentials()["fire_auth()"].database()
 
     @staticmethod
-    def fire_nodes():
+    def fire_credentials():
         return {
             "firebase_users_node": current_app.config.get('FIREBASE_USERS_NODE'),
             "firebase_web_key": current_app.config.get("FIREBASE_WEB_KEY"),
