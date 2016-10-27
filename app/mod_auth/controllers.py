@@ -105,5 +105,5 @@ class Auth(object):
             'lastName': last_name,
             'email': self.email,
             'userName': username,
-            'phoneNumber': self.phone_no
+            'phoneNumber': int(self.phone_no)
         }, headers={'print': 'pretty'})

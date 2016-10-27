@@ -31,7 +31,7 @@ def register_user():
 
         if auth.register_user_handler(full_name=full_name, username=username):
             # proceed to register chama, pass the user name for the user dashboard
-            return redirect(url_for(endpoint='auth.register_chama', username=username, scheme='https'))
+            return redirect(url_for(endpoint='auth.register_chama', scheme='https'))
         else:
             # Display error
             flash("This email already exists")
@@ -40,7 +40,7 @@ def register_user():
     return render_template('auth/login.html')
 
 
-@mod_auth.route('/register-chama/<username>', methods=['POST', "GET"])
+@mod_auth.route('/register-chama', methods=['POST', "GET"])
 def register_chama():
     if request.method == "POST":
         chama_name = request.form['chama_name']
