@@ -1,6 +1,5 @@
 from app.models import Data_Base, engine
 import hashlib
-import uuid
 from sqlalchemy.orm import sessionmaker
 from requests import HTTPError
 from app.mod_auth import FirebaseAuth
