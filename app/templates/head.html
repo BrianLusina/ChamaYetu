@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <title>Chama Yetu</title>
 
-    <!-- CSS  -->
+    <!--Global CSS-->
+    <!--material icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--font awesome-->
+    <link href="{{ url_for('static', filename='css/fonts/font-awesome.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='mod_home/css/materialize.min.css')}}" media="screen,projection">
+    <!--Materialize CSS  -->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css')}}" media="screen,projection">
 
-    <link href="{{ url_for('static', filename='mod_home/css/fonts/font-awesome.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!--Google fonts-->
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
 
+    <!--styling for login form-->
+    <link rel="stylesheet" href="{{url_for('static', filename='mod_auth/css/auth.css')}}">
+
+    <!--index styles-->
     <link href="{{ url_for('static', filename='mod_home/css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
-
     <link href="{{ url_for('static', filename='mod_home/css/homestyle.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body>
