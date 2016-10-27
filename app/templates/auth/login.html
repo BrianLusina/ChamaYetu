@@ -16,11 +16,14 @@
         <!--LOGIN FORM-->
         <h1 class="title">Login</h1>
         <form enctype="multipart/form-data" action="{{ url_for('auth.login')}}">
+            <!--Email-->
             <div class="input-container">
-                <input id="login_email" id="Username" name="login_email" type="email"  required="required"/>
-                <label for="Username">Email</label>
+                <input id="login_email" name="login_email" type="email"  required="required"/>
+                <label for="login_email" data-error="Please enter a valid email">Email</label>
                 <div class="bar"></div>
             </div>
+
+            <!--Password-->
             <div class="input-container">
                 <input type="password" id="Password" required="required"/>
                 <label for="Password">Password</label>
