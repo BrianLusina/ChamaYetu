@@ -7,7 +7,7 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 # set the routes and accepted methods
-@mod_auth.route('/register/', methods=["POST", "GET"])
+@mod_auth.route('/register', methods=["POST", "GET"])
 def register_user():
     """
     Creates a connection to the firebase database to add a user
@@ -55,7 +55,7 @@ def register_chama():
         # redirect to dashboard, pass the username to the dashboard
         return redirect(url_for(endpoint='dashboard.dashboard', username="username", scheme='https'))
 
-    return render_template('home/index.html')
+    return render_template('auth/register-chama.html')
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])
