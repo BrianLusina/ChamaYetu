@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="auth_container">
+    <div class="auth-card"></div>
+
+      <!--reset card-->
+    <div class="auth-card blue-grey darken-4">
+        <!--Reset FORM-->
+        <h1 class="title purple-text">Reset Password</h1>
+        <form enctype="multipart/form-data" action="{{ url_for('auth.reset_password')}}" method="post">
+            <!--Email-->
+            <div class="input-container">
+                <input id="reset_email" name="reset_email" type="email"  required="required"/>
+                <label for="reset_email" data-error="Please enter a valid email">Email</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--Submit password reset-->
+            <div class="button-container">
+                <button type="submit"><span>Reset</span></button>
+            </div>
+
+            <!--Cancel-->
+            <div class="footer"><a href="/auth/login">Cancel</a></div>
+        </form>
+    </div>
+
+</div>
+{% include 'footer.html' %}
+
+{% endblock %}
