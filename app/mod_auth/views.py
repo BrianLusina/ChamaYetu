@@ -30,6 +30,7 @@ def register_user():
 
         if auth.register_user(full_name=full_name):
             # proceed to register chama, pass the user name for the user dashboard
+            flash("Please confirm your email")
             return redirect(url_for(endpoint='auth.register_chama', scheme='https'))
         else:
             # Display error
@@ -57,7 +58,9 @@ def register_chama():
             return redirect(url_for(endpoint='dashboard.dashboard', username=auth.username, scheme='https'))
         else:
             flash("Chama already exists")
-    return render_template(template_name_or_list='auth/register-chama.html')
+            return render_template('auth/register-chama.html')
+
+    return render_template('auth/register-chama.html')
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])

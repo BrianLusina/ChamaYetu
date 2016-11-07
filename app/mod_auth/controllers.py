@@ -73,7 +73,7 @@ class Auth(FirebaseAuth):
             }, headers=self.__headers)
             # update user's node with the newly created chama
             self.firebase_database.child(self.username).update({
-                "chamaGroups":{
+                "chamaGroups": {
                     "cg1": chama_name
                 }
             })
