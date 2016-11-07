@@ -20,16 +20,14 @@ class Auth(FirebaseAuth):
     """
 
     def __init__(self, email, password, phone_no=None):
-        super(FirebaseAuth, self).__init__()
         """
         :param email: email the user enters in the form
         :param password: password entered by the user
         """
+        super(Auth, self).__init__()
         self.email = email
         self.password = password
         self.phone_no = phone_no
-        # self.auth = self.fire_credentials()["fire_auth"]
-        # self.conn = self.fire_conn()
 
     def register_user_handler(self, full_name, username):
         """
