@@ -1,12 +1,9 @@
 from flask import Blueprint, request, render_template, \
     g, flash, session, redirect, url_for, current_app
 from sqlalchemy.orm import sessionmaker
-from wtforms import validators
 from app.models import User, Data_Base, engine
 from firebase import firebase
-from pprint import pprint
 from .form import SuggProject
-import datetime
 from pprint import pprint
 
 # Create session and connect to DB
@@ -43,9 +40,6 @@ def dashboard(username):
     chama_statement = firebase_conn.get(firebase_statements_node+"/boda", None)
     pprint(chama_details)
 
-    return render_template('user_dashboard/dashboard.html', username=username,
-                           chama_details=chama_details, chama_statement=chama_statement)
-
     # welcome our amazing user
     flash("Welcome back " + username)
 
@@ -58,7 +52,7 @@ def dashboard(username):
     pprint(chama_details)
 
     return render_template('user_dashboard/dashboard.html', username=username,
-                           chama_details=chama_details, chama_statement=chama_statement)
+                           chama_details=chama_details, chama_statement=chama_statement, scheme='https')
 
 # global var
 count = 0
