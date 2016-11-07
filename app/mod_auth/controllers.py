@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from requests import HTTPError
 from app.mod_auth import FirebaseAuth
 import re
+import datetime
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -52,12 +53,13 @@ class Auth(FirebaseAuth):
 
     def register_chama(self, chama_name, chama_members, bank_name, bank_account):
         chama_name_node_key = chama_name.lower()
+        date = datetime.date.today().strftime("%B-%d-%Y")
         # check the database for a similar chama name
         if self.firebase_database.child(chama_name_node_key).get().key() is None:
             self.firebase_app.put(url=self.firebase_chama_node, name=chama_name_node_key, data={
                 "accountNumber": bank_account,
                 "bankName": bank_name,
-                "dateCreated": "",
+                "dateCreated": date,
                 "members": chama_members,
                 "name": chama_name,
                 "nextMeetingTime": "",
