@@ -56,6 +56,7 @@ class Auth(FirebaseAuth):
         date = datetime.date.today().strftime("%B-%d-%Y")
         # check the database for a similar chama name
         if self.firebase_database.child(chama_name_node_key).get().key() is None:
+            # create the new chama
             self.firebase_app.put(url=self.firebase_chama_node, name=chama_name_node_key, data={
                 "accountNumber": bank_account,
                 "bankName": bank_name,
@@ -70,6 +71,12 @@ class Auth(FirebaseAuth):
                     "chairperson": self.username,
                 }
             }, headers=self.__headers)
+            # update user's node with the newly created chama
+            self.firebase_database.child(self.username).update({
+                "chamaGroups":{
+                    "cg1": chama_name
+                }
+            })
             return True
         else:
             return False
