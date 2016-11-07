@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="auth_container">
+    <div class="auth-card"></div>
+    <!--register chama card-->
+    <div class="auth-card blue-grey darken-4">
+        <!--New Chama form-->
+        <h1 class="title purple-text">New Chama</h1>
+        <form enctype="multipart/form-data" action="{{ url_for('auth.register_chama')}}" method="post">
+            <!--Chama name-->
+            <div class="input-container">
+                <input id="chama_name" name="chama_name" type="text" required="required"/>
+                <label for="chama_name">Chama name</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--number of members-->
+            <div class="input-container">
+                <input id="chama_members" name="chama_members" type="number" required="required"/>
+                <label for="chama_members">Members</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--bank name-->
+            <div class="input-container">
+                <input id="chama_bank" name="chama_bank" type="text" required="required"/>
+                <label for="chama_bank">Bank</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--bank account number-->
+            <div class="input-container">
+               <input name="chama_bank_ac" id="chama_bank_ac" type="text" required>
+               <label for="chama_bank_ac">Account number</label>
+           </div>
+
+            <!--register chama btn-->
+            <div class="button-container">
+                <button type="submit"><span>Register</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+{% endblock %}

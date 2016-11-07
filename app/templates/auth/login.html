@@ -1,50 +1,79 @@
-{% macro render_field(field, placeholder=None) %}
-{% if field.errors %}
-<div>
-{% elif field.flags.error %}
-<div>
-{% else %}
-<div>
-{% endif %}
-    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
-    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
-</div>
-{% endmacro %}
+{% extends 'base.html' %}
+{% block content %}
 
-<div>
-  <div>
-    <legend>Sign in</legend>
-    {% with errors = get_flashed_messages(category_filter=["error"]) %}
-    {% if errors %}
-    <div>
-    {% for error in errors %}
-    {{ error }}<br>
-    {% endfor %}
-    </div>
-    {% endif %}
-    {% endwith %}
+  <div class="auth_container">
+    <div class="auth-card"></div>
 
-    {% if form.errors %}
-    <div>
-    {% for field, error in form.errors.items() %}
-    {% for e in error %}
-    {{ e }}<br>
-    {% endfor %}
-    {% endfor %}
+      <!--Login card-->
+    <div class="auth-card blue-grey darken-4">
+        <!--LOGIN FORM-->
+        <h1 class="title purple-text">Login</h1>
+        <form enctype="multipart/form-data" action="{{ url_for('auth.login')}}" method="post">
+            <!--Email-->
+            <div class="input-container">
+                <input id="login_email" name="login_email" type="email"  required="required"/>
+                <label for="login_email" data-error="Please enter a valid email">Email</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--Password-->
+            <div class="input-container">
+                <input name="login_password" id="login_password" type="password" required="required"/>
+                <label for="login_password">Password</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--Login button-->
+            <div class="button-container">
+                <button type="submit"><span>Login</span></button>
+            </div>
+            <!--forgot password link-->
+            <div class="footer"><a href="/auth/reset_password">Forgot your password?</a></div>
+        </form>
     </div>
-    {% endif %}
-    <form method="POST" action="." accept-charset="UTF-8" role="form">
-      {{ form.csrf_token }}
-      {{ render_field(form.email, placeholder="Your Email Address",
-                                  autofocus="") }}
-      {{ render_field(form.password, placeholder="Password") }}
-      <div>
-      <label>
-        <input type="checkbox" name="remember" value="1"> Remember Me
-      </label>
-      <a role="button" href="">Forgot your password?</a><span class="clearfix"></span>
-      </div>
-      <button type="submit" name="submit">Sign in</button>
-    </form>
-  </div>
+
+    <!--Register user card-->
+    <div class="auth-card alt">
+        <div class="toggle"></div>
+        <h1 class="title">Register
+            <div class="close"></div>
+        </h1>
+        <!--register user form-->]
+        <form enctype="multipart/form-data" action="{{url_for('auth.register_user')}}" method="post">
+            <!--Full name-->
+            <div class="input-container">
+                <input name="signup_full_name" id="signup_full_name" type="text" required="required"/>
+                <label for="signup_full_name">Full Name</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--Email/Phone number-->
+            <div class="input-container">
+                <input name="signup-email" id="signup-email" type="email" class="validate" required="required"/>
+                <label for="signup-email" data-error="Please enter a valid email">Email</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--Phone Number-->
+            <div class="input-container">
+                <input name="signup-phone" id="signup-phone" type="tel" required="required"/>
+                <label for="signup-phone">Phone Number</label>
+                <div class="bar"></div>
+            </div>
+
+            <!--Password-->
+            <div class="input-container">
+                <input name="signup_password" id="signup_password" type="password" required="required"/>
+                <label for="signup_password">Password</label>
+                <div class="bar"></div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit"><span>Next</span></button>
+            </div>
+        </form>
+    </div>
 </div>
+{% include 'footer.html' %}
+
+{% endblock %}
