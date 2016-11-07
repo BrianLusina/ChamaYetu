@@ -21,12 +21,11 @@ class FirebaseAuth(object):
         self.firebase_secret = current_app.config.get("FIREBASE_WEB_KEY")
 
     @abstractmethod
-    def register_user(self, full_name, username):
+    def register_user(self, full_name):
         """
         Handles user sign up. The Try...catch block creates a new user with email and password
         Checks if the user already exists in the database and returns true if they do not.
         The user is then created in the database and their credentials are passed to the database
-        :param username: auto-generated username
         :param full_name: full name of the user
         :return: :rtype boolean depending on success of the user signing up
         """

@@ -24,12 +24,11 @@ def register_user():
         email = request.form['signup-email']
         password = request.form['signup_password']
         phone_no = request.form['signup-phone']
-        username = re.split('@', email)[0]
 
         # initialize the Auth class with the email and password
         auth = Auth(email=email, phone_no=phone_no, password=password)
 
-        if auth.register_user(full_name=full_name, username=username):
+        if auth.register_user(full_name=full_name):
             # proceed to register chama, pass the user name for the user dashboard
             return redirect(url_for(endpoint='auth.register_chama', scheme='https'))
         else:
@@ -48,13 +47,16 @@ def register_chama():
         chama_bank = request.form['chama_bank']
         chama_bank_ac = request.form['chama_bank_ac']
 
+        # initialize an empty Auth instance
+        auth = Auth(None, None)
+
         # pass the form data to the register chama handler in controller
-        Auth.register_chama(chama_name=chama_name, chama_members=chama_members, bank_name=chama_bank,
-                            bank_account=chama_bank_ac)
-
-        # redirect to dashboard, pass the username to the dashboard
-        return redirect(url_for(endpoint='dashboard.dashboard', username="username", scheme='https'))
-
+        if auth.register_chama(chama_name=chama_name, chama_members=chama_members, bank_name=chama_bank,
+                               bank_account=chama_bank_ac):
+            # redirect to dashboard, pass the username to the dashboard
+            return redirect(url_for(endpoint='dashboard.dashboard', username=auth.username, scheme='https'))
+        else:
+            flash("Chama already exists")
     return render_template(template_name_or_list='auth/register-chama.html')
 
 

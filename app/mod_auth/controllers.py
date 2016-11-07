@@ -3,6 +3,7 @@ import hashlib
 from sqlalchemy.orm import sessionmaker
 from requests import HTTPError
 from app.mod_auth import FirebaseAuth
+import re
 
 # Create session and connect to DB
 Data_Base.metadata.bind = engine
@@ -18,6 +19,7 @@ class Auth(FirebaseAuth):
     firebase_conn connects to the database
     firebase_database connects to the database url, enabling access to the database nodes
     """
+    __headers = {'print': "pretty"}
 
     def __init__(self, email, password, phone_no=None):
         """
@@ -28,17 +30,9 @@ class Auth(FirebaseAuth):
         self.email = email
         self.password = password
         self.phone_no = phone_no
+        self.username = re.split('@', self.email)[0]
 
-    def register_user(self, full_name, username):
-        """
-        Handles user sign up. The Try...catch block creates a new user with email and password
-        Checks if the user already exists in the database and returns true if they do not.
-        The user is then created in the database and their credentials are passed to the database
-        :param username: auto-generated username
-        :param full_name: full name of the user
-        :return: :rtype boolean depending on success of the user signing up
-        """
-
+    def register_user(self, full_name):
         # Hash that Password
         sha1 = hashlib.sha1()
         sha1.update(self.password)
@@ -50,23 +44,35 @@ class Auth(FirebaseAuth):
             user = auth.create_user_with_email_and_password(self.email, password)
             auth.send_email_verification(user['idToken'])
 
-            self.database_directive(username, full_name)
+            self.database_directive(self.username, full_name)
             return True
         except HTTPError:
             # if the email already exists, return false to display an error in the view
             return False
 
-    @staticmethod
     def register_chama(self, chama_name, chama_members, bank_name, bank_account):
-        self.firebase_app.put()
-
-        pass
+        chama_name_node_key = chama_name.lower()
+        # check the database for a similar chama name
+        if self.firebase_database.child(chama_name_node_key).get().key() is None:
+            self.firebase_app.put(url=self.firebase_chama_node, name=chama_name_node_key, data={
+                "accountNumber": bank_account,
+                "bankName": bank_name,
+                "dateCreated": "",
+                "members": chama_members,
+                "name": chama_name,
+                "nextMeetingTime": "",
+                "totalAmount": 0,
+                "venue": "",
+                "milestoneDate": "",
+                "roles": {
+                    "chairperson": self.username,
+                }
+            }, headers=self.__headers)
+            return True
+        else:
+            return False
 
     def login_user(self):
-        """
-        :return: Whether the user exists in the auth configurations or whether they are new users
-        :rtype Bool
-        """
         try:
             self.firebase_auth.sign_in_with_email_and_password(self.email, self.password)
             return True
@@ -74,21 +80,9 @@ class Auth(FirebaseAuth):
             return False
 
     def reset_password(self, email):
-        """
-        Reset user password on request
-        :param email: User email to reset password
-        :return:
-        """
-        # send password reset email
         self.firebase_auth.send_password_reset_email(email=email)
 
     def database_directive(self, username, full_name):
-        """
-        Adds the user to the database with the following params
-        :param username: the username generated from the user email
-        :param full_name: full name of the user
-        :return: no return type here
-        """
 
         first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
 
@@ -98,4 +92,4 @@ class Auth(FirebaseAuth):
             'email': self.email,
             'userName': username,
             'phoneNumber': int(self.phone_no)
-        }, headers={'print': 'pretty'})
+        }, headers=self.__headers)
