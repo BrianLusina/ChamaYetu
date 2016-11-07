@@ -20,11 +20,11 @@ class Auth(FirebaseAuth):
     """
 
     def __init__(self, email, password, phone_no=None):
+        super(FirebaseAuth, self).__init__()
         """
         :param email: email the user enters in the form
         :param password: password entered by the user
         """
-        super(Auth, self).__init__()
         self.email = email
         self.password = password
         self.phone_no = phone_no
@@ -48,7 +48,7 @@ class Auth(FirebaseAuth):
 
         # create a user with email and password, check if the user email already exists
         try:
-            auth = self.fire_credentials()['fire_auth']
+            auth = self.firebase_auth
             user = auth.create_user_with_email_and_password(self.email, password)
             auth.send_email_verification(user['idToken'])
 
@@ -76,7 +76,7 @@ class Auth(FirebaseAuth):
         :rtype Bool
         """
         try:
-            self.fire_credentials()['fire_auth'].sign_in_with_email_and_password(self.email, self.password)
+            self.firebase_auth.sign_in_with_email_and_password(self.email, self.password)
             return True
         except HTTPError:
             return False
@@ -88,7 +88,7 @@ class Auth(FirebaseAuth):
         :return:
         """
         # send password reset email
-        self.fire_credentials()["fire_auth"].send_password_reset_email(email=email)
+        self.firebase_auth.send_password_reset_email(email=email)
 
     def database_directive(self, username, full_name):
         """
@@ -100,7 +100,7 @@ class Auth(FirebaseAuth):
 
         first_name, last_name = full_name.split(" ")[0], full_name.split(" ")[1]
 
-        self.conn.put(url='/users', name=username, data={
+        self.firebase_app.put(url='/users', name=username, data={
             'firstName': first_name,
             'lastName': last_name,
             'email': self.email,
