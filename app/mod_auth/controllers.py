@@ -29,7 +29,7 @@ class Auth(FirebaseAuth):
         self.password = password
         self.phone_no = phone_no
 
-    def register_user_handler(self, full_name, username):
+    def register_user(self, full_name, username):
         """
         Handles user sign up. The Try...catch block creates a new user with email and password
         Checks if the user already exists in the database and returns true if they do not.
@@ -57,18 +57,12 @@ class Auth(FirebaseAuth):
             return False
 
     @staticmethod
-    def register_chama_handler(chama_name, chama_members, bank_name, bank_account):
-        """
-        :param chama_name: name of the chama to be registered
-        :param chama_members: number of members to be registered with the chama
-        :param bank_name: the bank name of the registering chama
-        :param bank_account: the bank account of the chama
-        :return: :rtype bool, whether the write operation is completed
-        """
+    def register_chama(self, chama_name, chama_members, bank_name, bank_account):
+        self.firebase_app.put()
 
         pass
 
-    def login_handler(self):
+    def login_user(self):
         """
         :return: Whether the user exists in the auth configurations or whether they are new users
         :rtype Bool

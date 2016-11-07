@@ -29,7 +29,7 @@ def register_user():
         # initialize the Auth class with the email and password
         auth = Auth(email=email, phone_no=phone_no, password=password)
 
-        if auth.register_user_handler(full_name=full_name, username=username):
+        if auth.register_user(full_name=full_name, username=username):
             # proceed to register chama, pass the user name for the user dashboard
             return redirect(url_for(endpoint='auth.register_chama', scheme='https'))
         else:
@@ -49,13 +49,13 @@ def register_chama():
         chama_bank_ac = request.form['chama_bank_ac']
 
         # pass the form data to the register chama handler in controller
-        Auth.register_chama_handler(chama_name=chama_name, chama_members=chama_members, bank_name=chama_bank,
-                                    bank_account=chama_bank_ac)
+        Auth.register_chama(chama_name=chama_name, chama_members=chama_members, bank_name=chama_bank,
+                            bank_account=chama_bank_ac)
 
         # redirect to dashboard, pass the username to the dashboard
         return redirect(url_for(endpoint='dashboard.dashboard', username="username", scheme='https'))
 
-    return render_template('auth/register-chama.html')
+    return render_template(template_name_or_list='auth/register-chama.html')
 
 
 @mod_auth.route('/login', methods=["POST", "GET"])
@@ -76,7 +76,7 @@ def login():
 
         auth = Auth(email=email, password=password)
 
-        if auth.login_handler():
+        if auth.login_user():
             return redirect(url_for(endpoint='dashboard.dashboard', username=username))
         else:
             flash("Wrong Password or email")
