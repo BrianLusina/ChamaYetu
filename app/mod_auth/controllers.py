@@ -10,7 +10,7 @@ DBSession = sessionmaker(bind=engine)
 db_session = DBSession()
 
 
-class Auth(object):
+class Auth(FirebaseAuth):
     """
     Class that handles the authentication variables with Firebase
     firebase_auth gets the configuration dictionary that will be used for authenticating the user
@@ -24,11 +24,12 @@ class Auth(object):
         :param email: email the user enters in the form
         :param password: password entered by the user
         """
+        super(Auth, self).__init__()
         self.email = email
         self.password = password
         self.phone_no = phone_no
-        self.auth = FirebaseAuth.fire_credentials()["fire_auth"]
-        self.conn = FirebaseAuth.fire_conn()
+        # self.auth = self.fire_credentials()["fire_auth"]
+        # self.conn = self.fire_conn()
 
     def register_user_handler(self, full_name, username):
         """
@@ -47,8 +48,9 @@ class Auth(object):
 
         # create a user with email and password, check if the user email already exists
         try:
-            user = self.auth.create_user_with_email_and_password(self.email, password)
-            self.auth.send_email_verification(user['idToken'])
+            auth = self.fire_credentials()['fire_auth']
+            user = auth.create_user_with_email_and_password(self.email, password)
+            auth.send_email_verification(user['idToken'])
 
             self.database_directive(username, full_name)
             return True
@@ -74,21 +76,19 @@ class Auth(object):
         :rtype Bool
         """
         try:
-            self.auth.sign_in_with_email_and_password(self.email, self.password)
+            self.fire_credentials()['fire_auth'].sign_in_with_email_and_password(self.email, self.password)
             return True
         except HTTPError:
             return False
 
-    @staticmethod
-    def reset_password(email):
+    def reset_password(self, email):
         """
         Reset user password on request
         :param email: User email to reset password
         :return:
         """
         # send password reset email
-        FirebaseAuth.fire_credentials()["fire_auth"].send_password_reset_email(email=email)
-        pass
+        self.fire_credentials()["fire_auth"].send_password_reset_email(email=email)
 
     def database_directive(self, username, full_name):
         """

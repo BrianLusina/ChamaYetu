@@ -6,7 +6,7 @@ __pycache__
 ### Python template
 # Byte-compiled / optimized / DLL files
 *$py.class
-
+venv/
 ChamaYetu-service.json
 
 # Distribution / packaging

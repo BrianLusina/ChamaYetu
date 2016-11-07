@@ -8,22 +8,15 @@ class FirebaseAuth(object):
     """
 
     def __init__(self):
-        pass
+        self.firebase_users_node = current_app.config.get('FIREBASE_USERS_NODE')
+        self.firebase_chama_node = current_app.config.get('FIREBASE_CHAMA_NODE')
+        self.firebase_auth = current_app.config.get('FIREBASE_CONFIG').auth()
+        self.firebase_db_url = current_app.config.get('FIREBASE_DB_CONN')
+        self.firebase_app = firebase.FirebaseApplication(self.firebase_db_url, None)
+        self.firebase_database = current_app.config.get('FIREBASE_CONFIG').database()
 
-    @staticmethod
-    def fire_conn():
-        return firebase.FirebaseApplication(FirebaseAuth.fire_credentials()["fire_db_url"], None)
-
-    @staticmethod
-    def fire_database():
-        return FirebaseAuth.fire_credentials()["fire_auth()"].database()
-
-    @staticmethod
-    def fire_credentials():
+    def fire_credentials(self):
         return {
-            "firebase_users_node": current_app.config.get('FIREBASE_USERS_NODE'),
             "firebase_web_key": current_app.config.get("FIREBASE_WEB_KEY"),
             "firebase_secret": current_app.config.get("FIREBASE_WEB_KEY"),
-            "fire_auth": current_app.config.get('FIREBASE_CONFIG').auth(),
-            "fire_db_url": current_app.config.get('FIREBASE_DB_CONN')
         }

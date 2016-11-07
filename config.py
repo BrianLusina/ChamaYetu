@@ -34,8 +34,12 @@ FIREBASE_USERS_NODE = '/users'
 FIREBASE_CHAMA_NODE = '/chamas'
 FIREBASE_STATEMENTS_NODE = '/statements'
 FIREBASE_MEMBERS_NODE = '/members'
+FIREBASE_ACTIVITY_NODE = '/activity'
+FIREBASE_CALENDER_NODE = '/calender'
+FIREBASE_PROJECTS_NODE = '/projects'
+
 FIREBASE_WEB_KEY = "AIzaSyAfNGG37gtrI09dy1nkpLt6ppX_NSgzM70"
-FIREBASE_SUGGESTEDPROJ_NODE = "/suggestProject"
+
 
 config = {
     "apiKey": FIREBASE_WEB_KEY,
