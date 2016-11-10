@@ -1,4 +1,3 @@
-
 .idea/
 *.pyc
 __pycache__
@@ -8,6 +7,8 @@ __pycache__
 *$py.class
 venv/
 ChamaYetu-service.json
+*.db
+migration/
 
 # Distribution / packaging
 .Python
