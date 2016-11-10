@@ -1,4 +1,3 @@
-# Define the application directory
 import os
 import pyrebase
 import json
